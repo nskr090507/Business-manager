@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Financial Ledger - Business Manager Pro</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside>
+    <div class="logo">
+      <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Manager PRO</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="home.html">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+        Dashboard
+      </a></li>
+      <li><a href="workers.html">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Workers
+      </a></li>
+      <li><a href="vehicles.html">
+        <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        Deliveries
+      </a></li>
+      <li><a href="stocks.html">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Stocks
+      </a></li>
+      <li class="active"><a href="finance.html">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        Finances
+      </a></li>
+      <li><a href="reports.html">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Reports
+      </a></li>
+      <li><a href="profile.html">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Settings
+      </a></li>
+    </ul>
+    
+    <div class="sidebar-footer">
+      <div class="user-profile">
+        <div class="avatar" id="userAvatar">U</div>
+        <div class="user-info">
+          <span class="user-name" id="profileName">User</span>
+          <span class="user-email" id="profileEmail">user@admin.com</span>
+        </div>
+      </div>
+      <button class="btn-logout" id="logoutBtn">
+        <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+        Log Out
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Area -->
+  <main>
+    <header>
+      <div class="header-title">
+        <h1>Finances</h1>
+        <p>Monitor profit margins, transaction sheets, and monthly budgets</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-primary" id="addTxBtn">
+          <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.5;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Record Transaction
+        </button>
+      </div>
+    </header>
+
+    <!-- KPI Row -->
+    <div class="kpi-grid">
+      <div class="kpi-card kpi-income">
+        <div class="kpi-icon"><svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div class="kpi-details">
+          <span class="kpi-title">Gross Revenue</span>
+          <span class="kpi-value" id="kpiRev">$0.00</span>
+        </div>
+      </div>
+      
+      <div class="kpi-card kpi-expense">
+        <div class="kpi-icon"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
+        <div class="kpi-details">
+          <span class="kpi-title">Ledger Expenses</span>
+          <span class="kpi-value" id="kpiExp">$0.00</span>
+        </div>
+      </div>
+      
+      <div class="kpi-card kpi-profit">
+        <div class="kpi-icon"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+        <div class="kpi-details">
+          <span class="kpi-title">Net Profit</span>
+          <span class="kpi-value" id="kpiProfit">$0.00</span>
+        </div>
+      </div>
+      
+      <div class="kpi-card kpi-efficiency">
+        <div class="kpi-icon"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div class="kpi-details">
+          <span class="kpi-title">Profit Margin</span>
+          <span class="kpi-value" id="kpiMargin">0.0%</span>
+        </div>
+      </div>
+
+      <div class="kpi-card kpi-wastage" style="border-left: 4px solid var(--danger);">
+        <div class="kpi-icon"><svg viewBox="0 0 24 24" style="stroke: var(--danger); fill: none; stroke-width: 2.5;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2 2v2"/></svg></div>
+        <div class="kpi-details">
+          <span class="kpi-title" style="color: var(--danger);">Wastage Cost</span>
+          <span class="kpi-value" id="kpiWastage" style="color: var(--danger); font-weight: 700;">$0.00</span>
+        </div>
+      </div>
+      
+      <div class="kpi-card kpi-receivable" style="border-left: 4px solid var(--primary);">
+        <div class="kpi-icon"><svg viewBox="0 0 24 24" style="stroke: var(--primary); fill: none; stroke-width: 2.5;"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+        <div class="kpi-details">
+          <span class="kpi-title" style="color: var(--primary);">Money to Collect</span>
+          <span class="kpi-value" id="kpiReceivable" style="color: var(--primary); font-weight: 700;">$0.00</span>
+        </div>
+      </div>
+
+      <div class="kpi-card kpi-payable" style="border-left: 4px solid var(--warning);">
+        <div class="kpi-icon"><svg viewBox="0 0 24 24" style="stroke: var(--warning); fill: none; stroke-width: 2.5;"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg></div>
+        <div class="kpi-details">
+          <span class="kpi-title" style="color: var(--warning);">Money to Pay Out</span>
+          <span class="kpi-value" id="kpiPayable" style="color: var(--warning); font-weight: 700;">$0.00</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts & Budgets -->
+    <div class="dashboard-row">
+      <!-- Pie Chart of Expenses -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Expenses Breakdown</h2>
+        </div>
+        <div style="position: relative; height: 260px; width: 100%; display: flex; align-items: center; justify-content: center;">
+          <canvas id="expensePieChart" style="max-height: 240px;"></canvas>
+        </div>
+      </div>
+
+      <!-- Budget Limits card -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Budget Tracker</h2>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:14px;color:var(--text-secondary);">Current Month Limit:</span>
+            <span style="font-weight:700;" id="budgetValue">$5,000.00</span>
+          </div>
+          <!-- Progress bar -->
+          <div style="background-color: var(--bg-secondary); border-radius: 9999px; height: 16px; overflow: hidden; width: 100%; position: relative;">
+            <div id="budgetBar" style="background-color: var(--primary); height: 100%; width: 0%; transition: width 0.3s ease;"></div>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--text-secondary);">
+            <span id="budgetPercent">0% Used</span>
+            <span id="budgetRemaining">$5,000.00 left</span>
+          </div>
+          
+          <div style="border-top:1px solid var(--border-color); padding-top:16px; margin-top:8px;">
+            <a href="profile.html" class="btn btn-secondary" style="width:100%; text-align:center;">Change Budget Settings</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </div>
+
+    <!-- Outstanding Party Balances -->
+    <div class="panel">
+      <div class="panel-header">
+        <h2>Outstanding Party Balances</h2>
+      </div>
+      <div class="table-responsive" style="max-height: 250px;">
+        <table id="partyBalancesTable">
+          <thead>
+            <tr>
+              <th>Party Name</th>
+              <th>Contact Info</th>
+              <th>We Are Owed</th>
+              <th>We Owe</th>
+              <th>Status / Balance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Load records -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Financial History Filters & Records -->
+    <div class="panel">
+      <div class="panel-header" style="flex-wrap: wrap; gap: 16px;">
+        <h2>Finance History</h2>
+        
+        <!-- Filter Bar -->
+        <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+          <input type="date" id="filterStart" placeholder="Start Date" style="padding: 6px 12px; font-size: 13px; max-width: 130px;">
+          <input type="date" id="filterEnd" placeholder="End Date" style="padding: 6px 12px; font-size: 13px; max-width: 130px;">
+          <select id="filterCategory" style="padding: 6px 12px; font-size: 13px;">
+            <option value="All">All Categories</option>
+            <option value="Wages">Wages</option>
+            <option value="Maintenance">Maintenance</option>
+            <option value="Fuel">Fuel</option>
+            <option value="Service Revenue">Service Revenue</option>
+            <option value="Other">Other</option>
+          </select>
+          <select id="filterType" style="padding: 6px 12px; font-size: 13px;">
+            <option value="All">All Types</option>
+            <option value="INCOME">Income</option>
+            <option value="EXPENSE">Expense</option>
+          </select>
+          <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 13px;" id="applyFiltersBtn">Filter</button>
+        </div>
+      </div>
+
+      <!-- Ledger Table -->
+      <div class="table-responsive">
+        <table id="ledgerTable">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Type</th>
+              <th>Category</th>
+              <th>Description</th>
+              <th>Amount</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Load records -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Add Transaction Dialog -->
+  <div class="dialog-overlay" id="txDialog">
+    <div class="dialog">
+      <div class="dialog-header">
+        <h3>Record Custom Transaction</h3>
+        <button class="btn btn-secondary" style="padding: 4px 8px;" id="closeTxDialogBtn">✕</button>
+      </div>
+      <form id="txForm">
+        <div class="dialog-body">
+          <div class="form-group">
+            <label for="txType">Transaction Type</label>
+            <select id="txType" required>
+              <option value="INCOME">Income (+)</option>
+              <option value="EXPENSE">Expense (-)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="txCategory">Category</label>
+            <select id="txCategory" required>
+              <option value="Service Revenue">Service Revenue</option>
+              <option value="Wages">Wages</option>
+              <option value="Maintenance">Maintenance</option>
+              <option value="Fuel">Fuel</option>
+              <option value="Other">Other / Miscellaneous</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="txAmount">Amount ($)</label>
+            <input type="number" id="txAmount" step="0.01" min="0.01" placeholder="e.g. 500.00" required>
+          </div>
+          <div class="form-group">
+            <label for="txDate">Transaction Date</label>
+            <input type="date" id="txDate" required>
+          </div>
+          <div class="form-group">
+            <label for="txDesc">Description / Narrative</label>
+            <input type="text" id="txDesc" placeholder="e.g. Service billing for client dispatch" required>
+          </div>
+        </div>
+        <div class="dialog-footer">
+          <button type="button" class="btn btn-secondary" id="cancelTxBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Entry</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script>
+    const token = localStorage.getItem('token');
+    const username = localStorage.getItem('username');
+    if (!token) window.location.href = '/login.html';
+
+    // Set User Profiles
+    document.getElementById('profileName').textContent = username;
+    document.getElementById('profileEmail').textContent = `${username.toLowerCase()}@manager.com`;
+    document.getElementById('userAvatar').textContent = username.charAt(0).toUpperCase();
+
+    function showToast(msg, type = 'success') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.innerHTML = `
+        <div style="width: 8px; height: 8px; border-radius: 50%; background-color: var(--${type === 'danger' ? 'danger' : 'success'})"></div>
+        <div class="toast-msg">${msg}</div>
+      `;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 4000);
+    }
+
+    // ----------------------------------------------------
+    // FINANCE LOADERS
+    // ----------------------------------------------------
+    let budgetLimit = 5000;
+
+    async function loadBudgetSettings() {
+      try {
+        const res = await fetch('/api/settings', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+        budgetLimit = data.budget_threshold || 5000;
+        document.getElementById('budgetValue').textContent = `$${budgetLimit.toFixed(2)}`;
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    // Fetch Party Balances (Accounts Payable & Receivable)
+    async function fetchPartyBalances() {
+      try {
+        const res = await fetch('/api/finance/party-balances', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (res.ok) {
+          const data = await res.json();
+          document.getElementById('kpiReceivable').textContent = `$${data.total_receivables.toFixed(2)}`;
+          document.getElementById('kpiPayable').textContent = `$${data.total_payables.toFixed(2)}`;
+          
+          const tbody = document.querySelector('#partyBalancesTable tbody');
+          tbody.innerHTML = '';
+          
+          if (data.parties.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--text-secondary);">No outstanding balances.</td></tr>`;
+            return;
+          }
+          
+          data.parties.forEach(p => {
+            const tr = document.createElement('tr');
+            
+            let netBalanceHtml = '';
+            if (p.net_balance > 0) {
+              netBalanceHtml = `<span style="color:var(--primary); font-weight:600;">+$${p.net_balance.toFixed(2)}</span>`;
+            } else if (p.net_balance < 0) {
+              netBalanceHtml = `<span style="color:var(--warning); font-weight:600;">-$${Math.abs(p.net_balance).toFixed(2)}</span>`;
+            } else {
+              netBalanceHtml = `<span style="color:var(--text-secondary);">Settled</span>`;
+            }
+
+            tr.innerHTML = `
+              <td style="font-weight:600;">${p.name}</td>
+              <td style="color:var(--text-secondary);">${p.contact || 'N/A'}</td>
+              <td style="color:var(--primary); font-weight:500;">$${p.receivable.toFixed(2)}</td>
+              <td style="color:var(--warning); font-weight:500;">$${p.payable.toFixed(2)}</td>
+              <td>${netBalanceHtml}</td>
+            `;
+            tbody.appendChild(tr);
+          });
+        }
+      } catch (err) {
+        console.error("Failed to load party balances:", err);
+      }
+    }
+
+    async function loadFinanceData() {
+      await loadBudgetSettings();
+      
+      try {
+        const res = await fetch('/api/finance/summary', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (res.status === 401) {
+          localStorage.clear();
+          window.location.href = '/login.html';
+          return;
+        }
+        const summary = await res.json();
+
+        // Update KPIs
+        document.getElementById('kpiRev').textContent = `$${summary.totalRevenue.toFixed(2)}`;
+        document.getElementById('kpiExp').textContent = `$${summary.totalExpenses.toFixed(2)}`;
+        document.getElementById('kpiProfit').textContent = `$${summary.netProfit.toFixed(2)}`;
+        document.getElementById('kpiMargin').textContent = `${summary.profitMargin.toFixed(1)}%`;
+        document.getElementById('kpiWastage').textContent = `$${(summary.breakdown.wastage || 0).toFixed(2)}`;
+
+        const kpiProfitCard = document.querySelector('.kpi-profit');
+        if (summary.netProfit < 0) {
+          kpiProfitCard.classList.remove('kpi-income');
+          kpiProfitCard.classList.add('kpi-expense');
+        } else {
+          kpiProfitCard.classList.add('kpi-income');
+          kpiProfitCard.classList.remove('kpi-expense');
+        }
+
+        // Budget calculations
+        const expenses = summary.totalExpenses;
+        const percent = Math.min(Math.round((expenses / budgetLimit) * 100), 100);
+        const bar = document.getElementById('budgetBar');
+        bar.style.width = `${percent}%`;
+        document.getElementById('budgetPercent').textContent = `${percent}% Used`;
+        
+        const remaining = budgetLimit - expenses;
+        if (remaining < 0) {
+          document.getElementById('budgetRemaining').textContent = `$${Math.abs(remaining).toFixed(2)} Over Budget`;
+          document.getElementById('budgetRemaining').style.color = 'var(--danger)';
+          bar.style.backgroundColor = 'var(--danger)';
+        } else {
+          document.getElementById('budgetRemaining').textContent = `$${remaining.toFixed(2)} left`;
+          document.getElementById('budgetRemaining').style.color = 'var(--text-secondary)';
+          bar.style.backgroundColor = 'var(--primary)';
+        }
+
+        renderPieChart(summary.breakdown);
+
+      } catch (err) {
+        showToast('Error loading financial analytics data', 'danger');
+      }
+    }
+
+    let expensePieChart = null;
+    function renderPieChart(breakdown) {
+      const ctx = document.getElementById('expensePieChart').getContext('2d');
+      if (expensePieChart) {
+        expensePieChart.destroy();
+      }
+
+      expensePieChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Wages', 'Maintenance', 'Fuel', 'Other'],
+          datasets: [{
+            data: [breakdown.wages, breakdown.maintenance, breakdown.fuel, breakdown.other],
+            backgroundColor: [
+              '#f43f5e', // Rose
+              '#d97706', // Amber
+              '#8b5cf6', // Purple
+              '#64748b'  // Slate
+            ],
+            borderWidth: 2,
+            borderColor: '#ffffff'
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'right',
+              labels: { boxWidth: 12, font: { family: 'Inter', size: 12 } }
+            }
+          }
+        }
+      });
+    }
+
+    // ----------------------------------------------------
+    // LEDGER RECORDS
+    // ----------------------------------------------------
+    let transactions = [];
+
+    async function loadLedger() {
+      const start = document.getElementById('filterStart').value;
+      const end = document.getElementById('filterEnd').value;
+      const category = document.getElementById('filterCategory').value;
+      const type = document.getElementById('filterType').value;
+
+      let query = `?start_date=${start}&end_date=${end}&category=${category}&type=${type}`;
+      
+      try {
+        const res = await fetch(`/api/finance/transactions${query}`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        transactions = await res.json();
+        renderLedgerTable();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    function renderLedgerTable() {
+      const tbody = document.querySelector('#ledgerTable tbody');
+      tbody.innerHTML = '';
+      if (transactions.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--text-secondary);">No ledger records found matching filters.</td></tr>`;
+        return;
+      }
+
+      transactions.forEach(t => {
+        const isIncome = t.type === 'INCOME';
+        const color = isIncome ? 'var(--success)' : 'var(--danger)';
+        const prefix = isIncome ? '+' : '-';
+        
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${t.date}</td>
+          <td><span class="badge ${isIncome ? 'badge-success' : 'badge-danger'}">${t.type}</span></td>
+          <td style="font-weight: 500;">${t.category}</td>
+          <td>${t.description}</td>
+          <td style="font-weight: 700; color: ${color}">${prefix}$${t.amount.toFixed(2)}</td>
+          <td class="actions">
+            <button class="delete" onclick="deleteTx('${t.id}')">
+              <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    document.getElementById('applyFiltersBtn').addEventListener('click', loadLedger);
+
+    window.deleteTx = async function(id) {
+      if (!confirm('Are you sure you want to delete this ledger entry? This cannot be undone.')) return;
+      try {
+        const res = await fetch(`/api/finance/transactions/${id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Delete failed');
+        showToast('Ledger record deleted successfully');
+        loadFinanceData();
+        loadLedger();
+      } catch (err) {
+        showToast(err.message, 'danger');
+      }
+    }
+
+    // Modal dialog trigger
+    const txDialog = document.getElementById('txDialog');
+    document.getElementById('addTxBtn').addEventListener('click', () => {
+      document.getElementById('txForm').reset();
+      document.getElementById('txDate').value = new Date().toISOString().split('T')[0];
+      txDialog.style.display = 'flex';
+    });
+
+    function closeTxDialog() {
+      txDialog.style.display = 'none';
+    }
+    document.getElementById('closeTxDialogBtn').addEventListener('click', closeTxDialog);
+    document.getElementById('cancelTxBtn').addEventListener('click', closeTxDialog);
+
+    // Save transaction
+    document.getElementById('txForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const txData = {
+        type: document.getElementById('txType').value,
+        category: document.getElementById('txCategory').value,
+        amount: parseFloat(document.getElementById('txAmount').value),
+        date: document.getElementById('txDate').value,
+        description: document.getElementById('txDesc').value.trim()
+      };
+
+      try {
+        const res = await fetch('/api/finance/transactions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(txData)
+        });
+        const result = await res.json();
+        if (!res.ok) throw new Error(result.error || 'Failed to save entry');
+
+        showToast('Custom ledger record added!');
+        closeTxDialog();
+        loadFinanceData();
+        loadLedger();
+      } catch (err) {
+        showToast(err.message, 'danger');
+      }
+    });
+
+    // Auto-update categories based on transaction type selection
+    document.getElementById('txType').addEventListener('change', (e) => {
+      const type = e.target.value;
+      const cat = document.getElementById('txCategory');
+      if (type === 'INCOME') {
+        cat.innerHTML = `
+          <option value="Service Revenue">Service Revenue</option>
+          <option value="Other">Other / Misc Revenue</option>
+        `;
+      } else {
+        cat.innerHTML = `
+          <option value="Wages">Wages</option>
+          <option value="Maintenance">Maintenance</option>
+          <option value="Fuel">Fuel</option>
+          <option value="Other">Other / Operating Expense</option>
+        `;
+      }
+    });
+
+    // Logout
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.clear();
+      window.location.href = '/login.html';
+    });
+
+    // Initial Load
+    loadFinanceData();
+    fetchPartyBalances();
+    loadLedger();
+
+  </script>
+</body>
+</html>

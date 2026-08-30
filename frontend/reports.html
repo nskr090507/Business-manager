@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reports - Business Manager Pro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside>
+    <div class="logo">
+      <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Manager PRO</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="home.html">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+        Dashboard
+      </a></li>
+      <li><a href="workers.html">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Workers
+      </a></li>
+      <li><a href="vehicles.html">
+        <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        Deliveries
+      </a></li>
+      <li><a href="stocks.html">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Stocks
+      </a></li>
+      <li><a href="finance.html">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        Finances
+      </a></li>
+      <li class="active"><a href="reports.html">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Reports
+      </a></li>
+      <li><a href="profile.html">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Settings
+      </a></li>
+    </ul>
+    
+    <div class="sidebar-footer">
+      <div class="user-profile">
+        <div class="avatar" id="userAvatar">U</div>
+        <div class="user-info">
+          <span class="user-name" id="profileName">User</span>
+          <span class="user-email" id="profileEmail">user@admin.com</span>
+        </div>
+      </div>
+      <button class="btn-logout" id="logoutBtn">
+        <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+        Log Out
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Area -->
+  <main>
+    <header>
+      <div class="header-title">
+        <h1>Reports</h1>
+        <p>Compile custom statements and download PDF, Excel, or CSV formats</p>
+      </div>
+    </header>
+
+    <!-- Filters Panel -->
+    <div class="panel" style="gap: 16px;">
+      <h3>Report Configuration</h3>
+      <form id="reportConfigForm" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; align-items: flex-end;">
+        <div class="form-group" style="margin-bottom:0;">
+          <label for="reportStart">Start Date</label>
+          <input type="date" id="reportStart" required>
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label for="reportEnd">End Date</label>
+          <input type="date" id="reportEnd" required>
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label for="reportCategory">Ledger Category</label>
+          <select id="reportCategory">
+            <option value="All">All Categories</option>
+            <option value="Wages">Wages</option>
+            <option value="Maintenance">Maintenance</option>
+            <option value="Fuel">Fuel</option>
+            <option value="Service Revenue">Service Revenue</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label for="reportType">Transaction Type</label>
+          <select id="reportType">
+            <option value="All">All Types</option>
+            <option value="INCOME">Income Only</option>
+            <option value="EXPENSE">Expense Only</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="height: 42px;">Compile Report</button>
+      </form>
+    </div>
+
+    <!-- Export Dashboard Panels -->
+    <div id="reportContainer" style="display: none; flex-direction: column; gap: 32px; margin-top: 32px;">
+      
+      <!-- Summaries Row & Export Buttons -->
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+        <div style="display: flex; gap: 20px; font-weight: 500;">
+          <div class="badge badge-success" style="padding: 12px 20px; font-size:13px; text-transform:none;">
+            Total Revenue: <strong id="sumRev">$0.00</strong>
+          </div>
+          <div class="badge badge-danger" style="padding: 12px 20px; font-size:13px; text-transform:none;">
+            Total Expenses: <strong id="sumExp">$0.00</strong>
+          </div>
+          <div class="badge badge-success" id="sumProfitBadge" style="padding: 12px 20px; font-size:13px; text-transform:none;">
+            Net Profit: <strong id="sumProfit">$0.00</strong>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 12px;">
+          <button class="btn btn-secondary" onclick="exportFile('csv')">Export CSV</button>
+          <button class="btn btn-secondary" onclick="exportFile('excel')">Export Excel</button>
+          <button class="btn btn-primary" onclick="exportFile('pdf')">Export PDF</button>
+        </div>
+      </div>
+
+      <!-- Financial Ledger Records -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Ledger History</h2>
+        </div>
+        <div class="table-responsive">
+          <table id="reportTxTable">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Vehicle Routes Completed -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Vehicle Routes Logs</h2>
+        </div>
+        <div class="table-responsive">
+          <table id="reportRoutesTable">
+            <thead>
+              <tr>
+                <th>Start Date</th>
+                <th>Vehicle</th>
+                <th>Driver</th>
+                <th>Planned Route</th>
+                <th>Distance</th>
+                <th>Fuel Liters</th>
+                <th>Fuel Cost</th>
+                <th>Revenue</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Wage Payments List -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Staff Daily Wages Payments</h2>
+        </div>
+        <div class="table-responsive">
+          <table id="reportWagesTable">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Worker Name</th>
+                <th>Amount Paid</th>
+                <th>Method</th>
+                <th>Period</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script>
+    const token = localStorage.getItem('token');
+    const username = localStorage.getItem('username');
+    if (!token) window.location.href = '/login.html';
+
+    // Set User Profile UI
+    document.getElementById('profileName').textContent = username;
+    document.getElementById('profileEmail').textContent = `${username.toLowerCase()}@manager.com`;
+    document.getElementById('userAvatar').textContent = username.charAt(0).toUpperCase();
+
+    // Default Date Inputs to last 30 days
+    const todayStr = new Date().toISOString().split('T')[0];
+    const prevMonth = new Date();
+    prevMonth.setDate(prevMonth.getDate() - 30);
+    const startStr = prevMonth.toISOString().split('T')[0];
+
+    document.getElementById('reportStart').value = startStr;
+    document.getElementById('reportEnd').value = todayStr;
+
+    function showToast(msg, type = 'success') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.innerHTML = `
+        <div style="width: 8px; height: 8px; border-radius: 50%; background-color: var(--${type === 'danger' ? 'danger' : 'success'})"></div>
+        <div class="toast-msg">${msg}</div>
+      `;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 4000);
+    }
+
+    // ----------------------------------------------------
+    // COMPILING REPORTS
+    // ----------------------------------------------------
+    let currentFilters = {};
+
+    document.getElementById('reportConfigForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const start = document.getElementById('reportStart').value;
+      const end = document.getElementById('reportEnd').value;
+      const category = document.getElementById('reportCategory').value;
+      const type = document.getElementById('reportType').value;
+
+      currentFilters = { startDate: start, endDate: end, category, type };
+
+      try {
+        const res = await fetch('/api/reports/generate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(currentFilters)
+        });
+        if (res.status === 401) {
+          localStorage.clear();
+          window.location.href = '/login.html';
+          return;
+        }
+        const data = await res.json();
+        renderReportPanels(data);
+      } catch (err) {
+        showToast('Failed to compile reports', 'danger');
+      }
+    });
+
+    function renderReportPanels(data) {
+      document.getElementById('reportContainer').style.display = 'flex';
+      
+      // Update Summaries
+      document.getElementById('sumRev').textContent = `$${data.summary.totalRevenue.toFixed(2)}`;
+      document.getElementById('sumExp').textContent = `$${data.summary.totalExpenses.toFixed(2)}`;
+      
+      const profit = data.summary.netProfit;
+      const profitEl = document.getElementById('sumProfit');
+      const profitBadge = document.getElementById('sumProfitBadge');
+      profitEl.textContent = `$${profit.toFixed(2)}`;
+      
+      if (profit < 0) {
+        profitBadge.className = 'badge badge-danger';
+      } else {
+        profitBadge.className = 'badge badge-success';
+      }
+
+      // Populate Ledger Table
+      const txTbody = document.querySelector('#reportTxTable tbody');
+      txTbody.innerHTML = '';
+      if (data.transactions.length === 0) {
+        txTbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-secondary);">No ledger records found.</td></tr>';
+      } else {
+        data.transactions.forEach(t => {
+          const isInc = t.type === 'INCOME';
+          txTbody.innerHTML += `
+            <tr>
+              <td>${t.date}</td>
+              <td><span class="badge ${isInc ? 'badge-success' : 'badge-danger'}">${t.type}</span></td>
+              <td style="font-weight: 500;">${t.category}</td>
+              <td>${t.description}</td>
+              <td style="font-weight:700; color: ${isInc ? 'var(--success)' : 'var(--danger)'}">${isInc ? '+' : '-'}$${t.amount.toFixed(2)}</td>
+            </tr>
+          `;
+        });
+      }
+
+      // Populate Routes Table
+      const routesTbody = document.querySelector('#reportRoutesTable tbody');
+      routesTbody.innerHTML = '';
+      if (data.routes.length === 0) {
+        routesTbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--text-secondary);">No route sheets dispatched.</td></tr>';
+      } else {
+        data.routes.forEach(r => {
+          routesTbody.innerHTML += `
+            <tr>
+              <td>${new Date(r.start_date).toLocaleDateString()}</td>
+              <td style="font-weight: 600;">${r.vehicle_name}</td>
+              <td>${r.worker_name}</td>
+              <td style="font-size:12px;">${r.planned_route}</td>
+              <td>${r.distance_traveled.toFixed(1)} km</td>
+              <td>${r.fuel_used.toFixed(1)} L</td>
+              <td style="color:var(--danger);font-weight:500;">$${r.fuel_cost.toFixed(2)}</td>
+              <td style="color:var(--success);font-weight:600;">$${r.route_revenue.toFixed(2)}</td>
+            </tr>
+          `;
+        });
+      }
+
+      // Populate Wages Table
+      const wagesTbody = document.querySelector('#reportWagesTable tbody');
+      wagesTbody.innerHTML = '';
+      if (data.wages.length === 0) {
+        wagesTbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-secondary);">No daily wages logs found.</td></tr>';
+      } else {
+        data.wages.forEach(w => {
+          wagesTbody.innerHTML += `
+            <tr>
+              <td>${w.payment_date}</td>
+              <td style="font-weight: 600;">${w.worker_name}</td>
+              <td style="font-weight: 600; color:var(--danger);">$${w.amount.toFixed(2)}</td>
+              <td>${w.payment_method}</td>
+              <td>${w.period_covered}</td>
+              <td style="font-size:12px;color:var(--text-secondary);">${w.notes || '-'}</td>
+            </tr>
+          `;
+        });
+      }
+    }
+
+    // Export files trigger
+    window.exportFile = function(format) {
+      const { startDate, endDate, category, type } = currentFilters;
+      // Pass JWT as a query param fallback since browser redirects/downloads don't send Authorization headers
+      const downloadUrl = `/api/reports/export/${format}?startDate=${startDate}&endDate=${endDate}&category=${category}&type=${type}&token=${token}`;
+      window.open(downloadUrl, '_blank');
+      showToast(`Compiling and downloading ${format.toUpperCase()} statement...`, 'success');
+    }
+
+    // Logout
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.clear();
+      window.location.href = '/login.html';
+    });
+
+  </script>
+</body>
+</html>

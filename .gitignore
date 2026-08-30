@@ -1,0 +1,24 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Environment Variables
+.env
+backend/.env
+.env.local
+
+# Database
+stock.db
+backend/stock.db
+*.sqlite
+*.db
+
+# Keys and Secrets
+firebase-service-account.json
+backend/firebase-service-account.json
+*.pem
+
+# OS generated files
+.DS_Store
+Thumbs.db

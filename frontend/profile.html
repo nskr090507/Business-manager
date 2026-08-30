@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings & Profile - Business Manager Pro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside>
+    <div class="logo">
+      <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Manager PRO</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="home.html">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+        Dashboard
+      </a></li>
+      <li><a href="workers.html">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Workers
+      </a></li>
+      <li><a href="vehicles.html">
+        <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        Deliveries
+      </a></li>
+      <li><a href="stocks.html">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Stocks
+      </a></li>
+      <li><a href="finance.html">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        Finances
+      </a></li>
+      <li><a href="reports.html">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Reports
+      </a></li>
+      <li class="active"><a href="profile.html">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Settings
+      </a></li>
+    </ul>
+    
+    <div class="sidebar-footer">
+      <div class="user-profile">
+        <div class="avatar" id="userAvatar">U</div>
+        <div class="user-info">
+          <span class="user-name" id="profileName">User</span>
+          <span class="user-email" id="profileEmail">user@admin.com</span>
+        </div>
+      </div>
+      <button class="btn-logout" id="logoutBtn">
+        <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+        Log Out
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main>
+    <header>
+      <div class="header-title">
+        <h1>Command Center Settings</h1>
+        <p>Manage product inventories, configure budgets, email notifications, and security</p>
+      </div>
+    </header>
+
+    <!-- Two-Column Settings Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; align-items: flex-start;">
+      
+      <!-- Left Column: Profile Card & Database Info -->
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        
+        <!-- Profile Card -->
+        <div class="panel">
+          <div class="panel-header" style="border-bottom: 1px solid var(--border-color); padding-bottom: 16px; margin-bottom: 20px;">
+            <h2>Business Profile</h2>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 24px;">
+            <div class="avatar" id="profileAvatarBig" style="width: 80px; height: 80px; font-size: 32px; border-radius: 50%; background-color: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 700; margin-bottom: 16px; box-shadow: var(--shadow-sm);">U</div>
+            <h3 id="profileFullName" style="font-size: 18px; font-weight: 700; color: var(--text-primary);">Full Name</h3>
+            <p id="profileBusiness" style="font-size: 14px; color: var(--primary); font-weight: 600; margin-top: 4px;">Company Name</p>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 12px; font-size: 13px;">
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
+              <span style="color: var(--text-secondary);">Username:</span>
+              <span id="profileUsername" style="font-weight: 600;">username</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
+              <span style="color: var(--text-secondary);">Email Address:</span>
+              <span id="profileEmailVal" style="font-weight: 600;">email@address.com</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
+              <span style="color: var(--text-secondary);">Phone Number:</span>
+              <span id="profilePhoneVal" style="font-weight: 600;">+1 555-5555</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Database status card -->
+        <div class="panel">
+          <div class="panel-header">
+            <h2>System Connection</h2>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:12px; font-size:13px;">
+            <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border-color); padding-bottom:8px;">
+              <span style="color:var(--text-secondary);">Database Connection:</span>
+              <span style="font-weight:600; color:var(--success);">Firebase Realtime (Active)</span>
+            </div>
+            <div style="display:flex; justify-content:space-between;">
+              <span style="color:var(--text-secondary);">Status:</span>
+              <span style="font-weight:600; color:var(--success);">Operational</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Product Catalog, Configurations, and Password Update -->
+      <div style="display: flex; flex-direction: column; gap: 24px; flex-grow: 2;">
+        
+        <!-- Product Catalog Management Card -->
+        <div class="panel">
+          <div class="panel-header" style="border-bottom: 1px solid var(--border-color); padding-bottom: 16px; margin-bottom: 16px;">
+            <h2>Product Catalog</h2>
+          </div>
+          <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.4;">Add products to register them in stock tracking. Initial stock defines starting inventory level before transactions.</p>
+          
+          <!-- Inline Add Product Form -->
+          <form id="productForm" style="display: grid; grid-template-columns: 2fr 1.5fr auto; gap: 12px; margin-bottom: 24px; align-items: flex-end;">
+            <div class="form-group" style="margin-bottom:0;">
+              <label for="prodName" style="font-size: 12px; margin-bottom: 4px;">Product Name</label>
+              <input type="text" id="prodName" required placeholder="e.g. Wheat, Barley" style="padding: 8px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); font-size: 13px;">
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label for="prodStock" style="font-size: 12px; margin-bottom: 4px;">Initial Stock (kg)</label>
+              <input type="number" id="prodStock" min="0" step="any" required placeholder="e.g. 1000" style="padding: 8px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); font-size: 13px;">
+            </div>
+            <button type="submit" class="btn btn-primary" style="padding: 9px 16px; font-size: 13px;">Add Item</button>
+          </form>
+
+          <!-- Products list Table -->
+          <div class="table-responsive">
+            <table id="productCatalogTable" style="font-size: 13px;">
+              <thead>
+                <tr>
+                  <th>Product Name</th>
+                  <th>Initial Stock</th>
+                  <th style="text-align: right;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="3" style="text-align: center; color: var(--text-secondary);">Loading catalog products...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Worker Roles Configurator Card -->
+        <div class="panel">
+          <div class="panel-header" style="border-bottom: 1px solid var(--border-color); padding-bottom: 16px; margin-bottom: 16px;">
+            <h2>Worker Roles Catalog</h2>
+          </div>
+          <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.4;">Configure worker roles/job titles (e.g. Route Driver, Supervisor) to select them during worker creation.</p>
+          
+          <!-- Inline Add Role Form -->
+          <form id="roleForm" style="display: grid; grid-template-columns: 2.5fr auto; gap: 12px; margin-bottom: 24px; align-items: flex-end;">
+            <div class="form-group" style="margin-bottom:0;">
+              <label for="roleName" style="font-size: 12px; margin-bottom: 4px;">Role Title</label>
+              <input type="text" id="roleName" required placeholder="e.g. Route Driver, Supervisor" style="padding: 8px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); font-size: 13px;">
+            </div>
+            <button type="submit" class="btn btn-primary" style="padding: 9px 16px; font-size: 13px;">Add Role</button>
+          </form>
+
+          <!-- Roles list Table -->
+          <div class="table-responsive">
+            <table id="roleCatalogTable" style="font-size: 13px;">
+              <thead>
+                <tr>
+                  <th>Role Name</th>
+                  <th style="text-align: right;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="2" style="text-align: center; color: var(--text-secondary);">Loading custom roles...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- App Configurations Card -->
+        <div class="panel">
+          <div class="panel-header">
+            <h2>App Configurations</h2>
+          </div>
+          <form id="settingsForm">
+            <div class="form-group">
+              <label for="settingsBudget">Monthly Expense Budget Threshold ($)</label>
+              <input type="number" id="settingsBudget" min="0" step="1" required placeholder="e.g. 5000">
+              <p style="font-size:12px; color:var(--text-secondary); margin-top:4px;">Get alerted on dashboard if monthly operational expenses exceed this threshold.</p>
+            </div>
+            
+            <div class="form-group" style="margin-top: 16px;">
+              <label for="settingsLowStock">Low Stock Alert Threshold (kg)</label>
+              <input type="number" id="settingsLowStock" min="1" step="any" required placeholder="e.g. 100">
+              <p style="font-size:12px; color:var(--text-secondary); margin-top:4px;">Get alerted on dashboard if product inventory levels drop below this value.</p>
+            </div>
+            
+            <div class="form-group" style="flex-direction:row; align-items:center; gap:12px; margin-top: 16px;">
+              <input type="checkbox" id="settingsEmail" style="width: auto; cursor:pointer;">
+              <label for="settingsEmail" style="cursor:pointer; margin-bottom:0;">Enable Automated Email Notifications (SMTP)</label>
+            </div>
+            <p style="font-size:12px; color:var(--text-secondary); margin-left: 28px; margin-top: -8px;">Sends automated alerts for engine service alerts, milestones, and threshold notifications.</p>
+
+            <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Save Configurations</button>
+          </form>
+        </div>
+
+        <!-- Change Password Card -->
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Change Account Password</h2>
+          </div>
+          <form id="passwordForm">
+            <div class="form-group">
+              <label for="currentPassword">Current Password</label>
+              <input type="password" id="currentPassword" required placeholder="Enter current password">
+            </div>
+            <div class="form-group" style="margin-top: 12px;">
+              <label for="newPassword">New Password</label>
+              <input type="password" id="newPassword" minlength="6" required placeholder="At least 6 characters">
+            </div>
+            <div class="form-group" style="margin-top: 12px;">
+              <label for="confirmNewPassword">Confirm New Password</label>
+              <input type="password" id="confirmNewPassword" minlength="6" required placeholder="Repeat new password">
+            </div>
+            <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Update Password</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script>
+    const token = localStorage.getItem('token');
+    if (!token) window.location.href = '/login.html';
+
+    function showToast(msg, type = 'success') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.innerHTML = `
+        <div style="width: 8px; height: 8px; border-radius: 50%; background-color: var(--${type === 'danger' ? 'danger' : 'success'})"></div>
+        <div class="toast-msg">${msg}</div>
+      `;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 4000);
+    }
+
+    // ----------------------------------------------------
+    // GET PROFILE DATA
+    // ----------------------------------------------------
+    async function loadProfile() {
+      try {
+        const res = await fetch('/api/profile', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (res.status === 401) {
+          localStorage.clear();
+          window.location.href = '/login.html';
+          return;
+        }
+        const profile = await res.json();
+        
+        // Populate brand sidebar
+        document.getElementById('profileName').textContent = profile.username;
+        document.getElementById('profileEmail').textContent = profile.email || `${profile.username.toLowerCase()}@manager.com`;
+        document.getElementById('userAvatar').textContent = profile.username.charAt(0).toUpperCase();
+
+        // Populate profile card
+        document.getElementById('profileFullName').textContent = profile.full_name || 'Business Manager Owner';
+        document.getElementById('profileBusiness').textContent = profile.business_name || 'Manager PRO Enterprise';
+        document.getElementById('profileUsername').textContent = profile.username;
+        document.getElementById('profileEmailVal').textContent = profile.email || 'None';
+        document.getElementById('profilePhoneVal').textContent = profile.phone || 'None';
+        document.getElementById('profileAvatarBig').textContent = (profile.full_name || profile.username).charAt(0).toUpperCase();
+      } catch (err) {
+        showToast('Error loading business profile details', 'danger');
+      }
+    }
+
+    // ----------------------------------------------------
+    // PRODUCT CATALOG OPERATIONS
+    // ----------------------------------------------------
+    async function loadCatalog() {
+      try {
+        const res = await fetch('/api/settings/products', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const products = await res.json();
+        
+        const tbody = document.querySelector('#productCatalogTable tbody');
+        tbody.innerHTML = '';
+
+        if (products.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="3" style="text-align: center; color: var(--text-secondary);">No products added to catalog.</td></tr>';
+          return;
+        }
+
+        products.forEach(p => {
+          tbody.innerHTML += `
+            <tr>
+              <td style="font-weight: 600; color: var(--text-primary);">${p.name}</td>
+              <td style="font-weight: 500;">${p.initial_stock.toFixed(1)} kg</td>
+              <td style="text-align: right; width: 80px;">
+                <button class="delete" onclick="deleteProduct('${p.key}')" title="Delete Product" style="background: none; border: none; cursor: pointer; color: var(--danger); padding: 4px;">
+                  <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                </button>
+              </td>
+            </tr>
+          `;
+        });
+      } catch (err) {
+        showToast('Error loading product catalog', 'danger');
+      }
+    }
+
+    document.getElementById('productForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const payload = {
+        name: document.getElementById('prodName').value,
+        initial_stock: parseFloat(document.getElementById('prodStock').value)
+      };
+
+      try {
+        const res = await fetch('/api/settings/products', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(payload)
+        });
+        const result = await res.json();
+        if (!res.ok) throw new Error(result.error || 'Failed to save product');
+
+        showToast(`Product "${payload.name}" successfully added to catalog.`);
+        document.getElementById('productForm').reset();
+        loadCatalog();
+      } catch (err) {
+        showToast(err.message, 'danger');
+      }
+    });
+
+    window.deleteProduct = async function(key) {
+      if (!confirm('Are you sure you want to remove this product from the catalog? Available stock levels for this product will reset.')) return;
+
+      try {
+        const res = await fetch(`/api/settings/products/${key}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const result = await res.json();
+        if (!res.ok) throw new Error(result.error || 'Failed to delete product');
+
+        showToast('Product removed from catalog.');
+        loadCatalog();
+      } catch (err) {
+        showToast(err.message, 'danger');
+      }
+    }
+
+    // ----------------------------------------------------
+    // WORKER ROLES OPERATIONS
+    // ----------------------------------------------------
+    async function loadRoles() {
+      try {
+        const res = await fetch('/api/settings/roles', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const roles = await res.json();
+        
+        const tbody = document.querySelector('#roleCatalogTable tbody');
+        tbody.innerHTML = '';
+
+        if (roles.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="2" style="text-align: center; color: var(--text-secondary);">No worker roles configured.</td></tr>';
+          return;
+        }
+
+        roles.forEach(r => {
+          tbody.innerHTML += `
+            <tr>
+              <td style="font-weight: 600; color: var(--text-primary);">${r.name}</td>
+              <td style="text-align: right; width: 80px;">
+                <button class="delete" onclick="deleteRole('${r.key}')" title="Delete Role" style="background: none; border: none; cursor: pointer; color: var(--danger); padding: 4px;">
+                  <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2 2v2"/></svg>
+                </button>
+              </td>
+            </tr>
+          `;
+        });
+      } catch (err) {
+        showToast('Error loading worker roles catalog', 'danger');
+      }
+    }
+
+    document.getElementById('roleForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const name = document.getElementById('roleName').value;
+
+      try {
+        const res = await fetch('/api/settings/roles', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ name })
+        });
+        const result = await res.json();
+        if (!res.ok) throw new Error(result.error || 'Failed to save worker role');
+
+        showToast(`Role "${name}" successfully configured.`);
+        document.getElementById('roleForm').reset();
+        loadRoles();
+      } catch (err) {
+        showToast(err.message, 'danger');
+      }
+    });
+
+    window.deleteRole = async function(key) {
+      if (!confirm('Are you sure you want to remove this role? Workers already assigned this role will keep it, but new workers cannot select it.')) return;
+
+      try {
+        const res = await fetch(`/api/settings/roles/${key}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const result = await res.json();
+        if (!res.ok) throw new Error(result.error || 'Failed to delete role');
+
+        showToast('Role removed from catalog.');
+        loadRoles();
+      } catch (err) {
+        showToast(err.message, 'danger');
+      }
+    }
+
+    // ----------------------------------------------------
+    // GET / UPDATE APP CONFIGS
+    // ----------------------------------------------------
+    async function loadSettings() {
+      try {
+        const res = await fetch('/api/settings', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const settings = await res.json();
+        
+        document.getElementById('settingsBudget').value = settings.budget_threshold || 5000;
+        document.getElementById('settingsLowStock').value = settings.low_stock_threshold || 100;
+        document.getElementById('settingsEmail').checked = !!settings.email_alerts_enabled;
+      } catch (err) {
+        showToast('Error loading application settings', 'danger');
+      }
+    }
+
+    document.getElementById('settingsForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const config = {
+        budget_threshold: parseFloat(document.getElementById('settingsBudget').value),
+        low_stock_threshold: parseFloat(document.getElementById('settingsLowStock').value),
+        email_alerts_enabled: document.getElementById('settingsEmail').checked
+      };
+
+      try {
+        const res = await fetch('/api/settings', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(config)
+        });
+        const result = await res.json();
+        if (!res.ok) throw new Error(result.error || 'Failed to save settings');
+        
+        showToast('Application configuration settings saved successfully!');
+      } catch (err) {
+        showToast(err.message, 'danger');
+      }
+    });
+
+    // ----------------------------------------------------
+    // CHANGE PASSWORD
+    // ----------------------------------------------------
+    document.getElementById('passwordForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const current_password = document.getElementById('currentPassword').value;
+      const new_password = document.getElementById('newPassword').value;
+      const confirm_new_password = document.getElementById('confirmNewPassword').value;
+
+      if (new_password !== confirm_new_password) {
+        showToast('New passwords do not match.', 'danger');
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/settings/password', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ current_password, new_password })
+        });
+        const result = await res.json();
+        if (!res.ok) throw new Error(result.error || 'Failed to update password');
+
+        showToast('Password updated successfully!');
+        document.getElementById('passwordForm').reset();
+      } catch (err) {
+        showToast(err.message, 'danger');
+      }
+    });
+
+    // Logout
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.clear();
+      window.location.href = '/login.html';
+    });
+
+    // Initial Load
+    loadProfile();
+    loadCatalog();
+    loadRoles();
+    loadSettings();
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business Manager Pro</title>
+  <script>
+    // Client-side authentication routing gateway
+    const token = localStorage.getItem('token');
+    if (token) {
+      window.location.href = '/home.html';
+    } else {
+      window.location.href = '/login.html';
+    }
+  </script>
+</head>
+<body>
+  <div style="font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f8fafc;">
+    <p style="color: #64748b; font-size: 14px;">Loading portal, please wait...</p>
+  </div>
+</body>
+</html>

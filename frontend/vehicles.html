@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vehicles Registry - Business Manager Pro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside>
+    <div class="logo">
+      <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Manager PRO</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="home.html">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+        Dashboard
+      </a></li>
+      <li><a href="workers.html">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Workers
+      </a></li>
+      <li class="active"><a href="vehicles.html">
+        <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        Deliveries
+      </a></li>
+      <li><a href="stocks.html">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Stocks
+      </a></li>
+      <li><a href="finance.html">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        Finances
+      </a></li>
+      <li><a href="reports.html">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Reports
+      </a></li>
+      <li><a href="profile.html">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Settings
+      </a></li>
+    </ul>
+    
+    <div class="sidebar-footer">
+      <div class="user-profile">
+        <div class="avatar" id="userAvatar">U</div>
+        <div class="user-info">
+          <span class="user-name" id="profileName">User</span>
+          <span class="user-email" id="profileEmail">user@admin.com</span>
+        </div>
+      </div>
+      <button class="btn-logout" id="logoutBtn">
+        <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+        Log Out
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Area -->
+  <main>
+    <header>
+      <div class="header-title">
+        <h1>Vehicles Registry</h1>
+        <p>Manage your fleet, maintenance logs, and active delivery routes</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-primary" id="addVehicleBtn">
+          <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.5;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Vehicle
+        </button>
+      </div>
+    </header>
+
+    <!-- Table Grid -->
+    <div class="panel">
+      <div class="table-responsive">
+        <table id="vehiclesTable">
+          <thead>
+            <tr>
+              <th>Vehicle</th>
+              <th>Type</th>
+              <th>License Plate</th>
+              <th>Year</th>
+              <th>Purchase Date</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Load list -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Vehicle Profile Modal -->
+  <div class="dialog-overlay" id="vehicleDialog">
+    <div class="dialog">
+      <div class="dialog-header">
+        <h3 id="dialogTitle">Add New Vehicle</h3>
+        <button class="btn btn-secondary" style="padding: 4px 8px;" id="closeVehicleDialogBtn">✕</button>
+      </div>
+      <form id="vehicleForm">
+        <div class="dialog-body">
+          <input type="hidden" id="editVehicleId">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+              <label for="vehicleMake">Make / Brand</label>
+              <input type="text" id="vehicleMake" placeholder="e.g. Toyota" required>
+            </div>
+            <div class="form-group">
+              <label for="vehicleModel">Model</label>
+              <input type="text" id="vehicleModel" placeholder="e.g. Hilux" required>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+              <label for="vehicleYear">Year</label>
+              <input type="number" id="vehicleYear" placeholder="e.g. 2022" required>
+            </div>
+            <div class="form-group">
+              <label for="vehiclePlate">License Plate</label>
+              <input type="text" id="vehiclePlate" placeholder="e.g. MH-12-AB-1234" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="vehicleType">Vehicle Type</label>
+            <select id="vehicleType">
+              <option value="Truck">Truck</option>
+              <option value="Pickup Van">Pickup Van</option>
+              <option value="Flatbed">Flatbed</option>
+              <option value="Delivery Bike">Delivery Bike</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="vehiclePurchase">Purchase Date</label>
+            <input type="date" id="vehiclePurchase">
+          </div>
+          <div class="form-group">
+            <label for="vehicleStatus">Status</label>
+            <select id="vehicleStatus">
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+        </div>
+        <div class="dialog-footer">
+          <button type="button" class="btn btn-secondary" id="cancelVehicleBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Profile</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Maintenance Service Modal -->
+  <div class="dialog-overlay" id="maintenanceDialog">
+    <div class="dialog" style="max-width: 600px;">
+      <div class="dialog-header">
+        <h3 id="maintenanceTitle">Maintenance Log</h3>
+        <button class="btn btn-secondary" style="padding: 4px 8px;" id="closeMaintDialogBtn">✕</button>
+      </div>
+      <div class="dialog-body">
+        <form id="maintenanceForm" style="margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border-color);">
+          <input type="hidden" id="maintVehicleId">
+          <h4 style="margin-bottom: 12px;">Add Service Record</h4>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+              <label for="maintType">Service / Fix Type</label>
+              <input type="text" id="maintType" placeholder="e.g. Engine Tuning, Tyre Replacement" required>
+            </div>
+            <div class="form-group">
+              <label for="maintCost">Service Cost ($)</label>
+              <input type="number" id="maintCost" step="0.01" min="0" placeholder="e.g. 240.00" required>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+              <label for="maintDate">Service Date</label>
+              <input type="date" id="maintDate" required>
+            </div>
+            <div class="form-group">
+              <label for="maintNextDate">Next Service Due Date</label>
+              <input type="date" id="maintNextDate">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="maintDesc">Service Description</label>
+            <textarea id="maintDesc" rows="2" placeholder="Describe the repairs made..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Record Maintenance (Expense)</button>
+        </form>
+
+        <h4>Maintenance History</h4>
+        <div class="table-responsive" style="margin-top: 12px; max-height: 200px;">
+          <table id="maintTable">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Cost</th>
+                <th>Next Due</th>
+                <th>Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- History -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Route Logs Modal -->
+  <div class="dialog-overlay" id="routeDialog">
+    <div class="dialog" style="max-width: 800px; width: 95%;">
+      <div class="dialog-header">
+        <h3 id="routeTitle">Route Logs & Dispatch</h3>
+        <button class="btn btn-secondary" style="padding: 4px 8px;" id="closeRouteDialogBtn">✕</button>
+      </div>
+      <div class="dialog-body">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+          <!-- Left: Dispatch Form -->
+          <div>
+            <form id="routeForm">
+              <input type="hidden" id="routeVehicleId">
+              <h4 style="margin-bottom: 12px;">Dispatch Vehicle</h4>
+              <div class="form-group">
+                <label for="routeDriver">Assigned Driver</label>
+                <select id="routeDriver" required>
+                  <!-- Workers options -->
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="routeStart">Date & Time</label>
+                <input type="datetime-local" id="routeStart" required>
+              </div>
+              <div class="form-group">
+                <label for="routePerson">Recipient Name</label>
+                <input type="text" id="routePerson" placeholder="e.g. John Doe" required>
+              </div>
+              <div class="form-group">
+                <label for="routeArea">Destination Area</label>
+                <input type="text" id="routeArea" placeholder="e.g. Downtown / Block 4" required>
+              </div>
+              <div class="form-group">
+                <label for="routeNotes">Delivery Notes (Optional)</label>
+                <textarea id="routeNotes" rows="2" placeholder="e.g. Call upon arrival"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width: 100%;">Dispatch Vehicle</button>
+            </form>
+          </div>
+
+          <!-- Right: Recent Dispatches -->
+          <div>
+            <h4 style="margin-bottom: 12px;">Recent Dispatches</h4>
+            <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+              <table id="routesTable">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Driver</th>
+                    <th>Destination</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Routes -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script>
+    const token = localStorage.getItem('token');
+    const username = localStorage.getItem('username');
+    if (!token) window.location.href = '/login.html';
+
+    // Set User Profiles
+    document.getElementById('profileName').textContent = username;
+    document.getElementById('profileEmail').textContent = `${username.toLowerCase()}@manager.com`;
+    document.getElementById('userAvatar').textContent = username.charAt(0).toUpperCase();
+
+    function showToast(msg, type = 'success') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.innerHTML = `
+        <div style="width: 8px; height: 8px; border-radius: 50%; background-color: var(--${type === 'danger' ? 'danger' : 'success'})"></div>
+        <div class="toast-msg">${msg}</div>
+      `;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 4000);
+    }
+
+    // ----------------------------------------------------
+    // VEHICLE CRUD
+    // ----------------------------------------------------
+    let vehicles = [];
+
+    async function loadVehicles() {
+      try {
+        const res = await fetch('/api/vehicles', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (res.status === 401) {
+          localStorage.clear();
+          window.location.href = '/login.html';
+          return;
+        }
+        vehicles = await res.json();
+        renderVehiclesTable();
+      } catch (err) {
+        showToast('Error loading fleet registry', 'danger');
+      }
+    }
+
+    function renderVehiclesTable() {
+      const tbody = document.querySelector('#vehiclesTable tbody');
+      tbody.innerHTML = '';
+      if (vehicles.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--text-secondary);">No vehicles registered in your fleet.</td></tr>`;
+        return;
+      }
+
+      vehicles.forEach(v => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td style="font-weight:600;">${v.make} ${v.model}</td>
+          <td>${v.vehicle_type}</td>
+          <td style="font-family: monospace; font-weight:600;">${v.license_plate}</td>
+          <td>${v.year}</td>
+          <td>${v.purchase_date || 'N/A'}</td>
+          <td><span class="badge ${v.status === 'active' ? 'badge-success' : 'badge-danger'}">${v.status}</span></td>
+          <td class="actions">
+            <button class="edit" onclick="openEditVehicleDialog('${v.id}')" title="Edit Vehicle Details">
+              <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4z"/></svg>
+            </button>
+            <button class="edit" style="background-color: var(--warning-light); color: var(--warning);" onclick="openMaintenanceDialog('${v.id}')" title="Maintenance Log">
+              <svg viewBox="0 0 24 24" style="fill:none; stroke:currentColor; stroke-width:2.2;"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            </button>
+            <button class="edit" style="background-color: var(--primary-light); color: var(--primary);" onclick="openRouteDialog('${v.id}')" title="Route tracker / Plan">
+              <svg viewBox="0 0 24 24" style="fill:none; stroke:currentColor; stroke-width:2.2;"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+            </button>
+            <button class="delete" onclick="deleteVehicle('${v.id}')" title="Delete Vehicle">
+              <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    const vehicleDialog = document.getElementById('vehicleDialog');
+    document.getElementById('addVehicleBtn').addEventListener('click', () => {
+      document.getElementById('vehicleForm').reset();
+      document.getElementById('editVehicleId').value = '';
+      document.getElementById('dialogTitle').textContent = 'Add New Vehicle';
+      document.getElementById('vehiclePurchase').value = new Date().toISOString().split('T')[0];
+      vehicleDialog.style.display = 'flex';
+    });
+
+    function closeVehicleDialog() {
+      vehicleDialog.style.display = 'none';
+    }
+    document.getElementById('closeVehicleDialogBtn').addEventListener('click', closeVehicleDialog);
+    document.getElementById('cancelVehicleBtn').addEventListener('click', closeVehicleDialog);
+
+    // Save/Update Vehicle
+    document.getElementById('vehicleForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('editVehicleId').value;
+      const vehicleData = {
+        make: document.getElementById('vehicleMake').value.trim(),
+        model: document.getElementById('vehicleModel').value.trim(),
+        year: parseInt(document.getElementById('vehicleYear').value),
+        license_plate: document.getElementById('vehiclePlate').value.trim(),
+        vehicle_type: document.getElementById('vehicleType').value,
+        purchase_date: document.getElementById('vehiclePurchase').value,
+        status: document.getElementById('vehicleStatus').value
+      };
+
+      try {
+        const url = id ? `/api/vehicles/${id}` : '/api/vehicles';
+        const method = id ? 'PUT' : 'POST';
+        const res = await fetch(url, {
+          method,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(vehicleData)
+        });
+        const result = await res.json();
+        if (!res.ok) throw new Error(result.error || 'Failed to save vehicle');
+
+        showToast(id ? 'Vehicle details updated!' : 'Vehicle successfully registered!');
+        closeVehicleDialog();
+        loadVehicles();
+      } catch (err) {
+        showToast(err.message, 'danger');
+      }
+    });
+
+    window.openEditVehicleDialog = function(id) {
+      const v = vehicles.find(x => x.id === id);
+      if (!v) return;
+      document.getElementById('editVehicleId').value = v.id;
+      document.getElementById('vehicleMake').value = v.make;
+      document.getElementById('vehicleModel').value = v.model;
+      document.getElementById('vehicleYear').value = v.year;
+      document.getElementById('vehiclePlate').value = v.license_plate;
+      document.getElementById('vehicleType').value = v.vehicle_type;
+      document.getElementById('vehiclePurchase').value = v.purchase_date || '';
+      document.getElementById('vehicleStatus').value = v.status;
+      document.getElementById('dialogTitle').textContent = 'Edit Vehicle Details';
+      vehicleDialog.style.display = 'flex';
+    }
+
+    window.deleteVehicle = async function(id) {
+      if (!confirm('Are you sure you want to remove this vehicle from your fleet?')) return;
+      try {
+        const res = await fetch(`/api/vehicles/${id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Delete failed');
+        showToast('Vehicle removed from fleet registry.');
+        loadVehicles();
+      } catch (err) {
+        showToast(err.message, 'danger');
+      }
+    }
+
+    // ----------------------------------------------------
+    // MAINTENANCE MANAGEMENT
+    // ----------------------------------------------------
+    const maintenanceDialog = document.getElementById('maintenanceDialog');
+
+    window.openMaintenanceDialog = function(id) {
+      const v = vehicles.find(x => x.id === id);
+      if (!v) return;
+
+      document.getElementById('maintenanceForm').reset();
+      document.getElementById('maintVehicleId').value = v.id;
+      document.getElementById('maintenanceTitle').textContent = `Maintenance Log: ${v.make} ${v.model} (${v.license_plate})`;
+      document.getElementById('maintDate').value = new Date().toISOString().split('T')[0];
+
+      maintenanceDialog.style.display = 'flex';
+      loadMaintLogs(v.id);
+    }
+
+    document.getElementById('closeMaintDialogBtn').addEventListener('click', () => {
+      maintenanceDialog.style.display = 'none';
+    });
+
+    async function loadMaintLogs(vehicleId) {
+      try {
+        const res = await fetch(`/api/vehicles/${vehicleId}/maintenance`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const logs = await res.json();
+        const tbody = document.querySelector('#maintTable tbody');
+        tbody.innerHTML = '';
+        if (logs.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--text-secondary);">No maintenance history logged.</td></tr>`;
+          return;
+        }
+
+        logs.forEach(log => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${log.service_date}</td>
+            <td style="font-weight:600;">${log.service_type}</td>
+            <td style="font-weight:600; color:var(--danger);">$${log.cost.toFixed(2)}</td>
+            <td>${log.next_service_date || 'N/A'}</td>
+            <td style="font-size:12px;color:var(--text-secondary);">${log.description || '-'}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    document.getElementById('maintenanceForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const vehicleId = document.getElementById('maintVehicleId').value;
+      const data = {
+        service_type: document.getElementById('maintType').value.trim(),
+        cost: parseFloat(document.getElementById('maintCost').value),
+        service_date: document.getElementById('maintDate').value,
+        next_service_date: document.getElementById('maintNextDate').value,
+        description: document.getElementById('maintDesc').value.trim()
+      };
+
+      try {
+        const res = await fetch(`/api/vehicles/${vehicleId}/maintenance`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(data)
+        });
+        const result = await res.json();
+        if (!res.ok) throw new Error(result.error || 'Failed to save maintenance log');
+
+        showToast('Service record saved & cost synced to ledger!');
+        loadMaintLogs(vehicleId);
+        document.getElementById('maintType').value = '';
+        document.getElementById('maintCost').value = '';
+        document.getElementById('maintNextDate').value = '';
+        document.getElementById('maintDesc').value = '';
+      } catch (err) {
+        showToast(err.message, 'danger');
+      }
+    });
+
+    // ----------------------------------------------------
+    // LEAFLET MAP & VEHICLE ROUTES
+    // ----------------------------------------------------
+    const routeDialog = document.getElementById('routeDialog');
+    let map = null;
+    let mapMarkers = [];
+    let mapPolyline = null;
+
+    // Load active staff for driver dropdown
+    async function loadDriverDropdown() {
+      try {
+        const res = await fetch('/api/workers', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const workers = await res.json();
+        const select = document.getElementById('routeDriver');
+        select.innerHTML = '<option value="">Select a Driver</option>';
+        workers.forEach(w => {
+          if (w.status === 'active') {
+            select.innerHTML += `<option value="${w.id}">${w.name} (${w.role})</option>`;
+          }
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    window.openRouteDialog = function(id) {
+      const v = vehicles.find(x => x.id === id);
+      if (!v) return;
+
+      document.getElementById('routeForm').reset();
+      document.getElementById('routeVehicleId').value = v.id;
+      document.getElementById('routeTitle').textContent = `Routes & Routing: ${v.make} ${v.model} (${v.license_plate})`;
+      
+      const now = new Date();
+      now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+      document.getElementById('routeStart').value = now.toISOString().slice(0, 16);
+
+      loadDriverDropdown();
+      routeDialog.style.display = 'flex';
+      
+      loadRoutesHistory(v.id);
+    }
+
+    document.getElementById('closeRouteDialogBtn').addEventListener('click', () => {
+      routeDialog.style.display = 'none';
+    });
+
+    async function loadRoutesHistory(vehicleId) {
+      try {
+        const res = await fetch(`/api/vehicles/${vehicleId}/routes`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const routes = await res.json();
+        const tbody = document.querySelector('#routesTable tbody');
+        tbody.innerHTML = '';
+        if (routes.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="3" style="text-align:center;color:var(--text-secondary);">No routes dispatched.</td></tr>`;
+          return;
+        }
+
+        routes.forEach(r => {
+          const date = new Date(r.start_date).toLocaleDateString();
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${date}</td>
+            <td style="font-weight:500;">${r.worker_name}</td>
+            <td style="font-size:13px;">
+              <span style="font-weight:600;">${r.destination_person}</span><br>
+              <span style="color:var(--text-secondary);">${r.destination_area}</span>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    document.getElementById('routeForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const vehicleId = document.getElementById('routeVehicleId').value;
+      const data = {
+        worker_id: document.getElementById('routeDriver').value,
+        start_date: document.getElementById('routeStart').value,
+        destination_person: document.getElementById('routePerson').value.trim(),
+        destination_area: document.getElementById('routeArea').value.trim(),
+        route_notes: document.getElementById('routeNotes').value.trim()
+      };
+
+      try {
+        const res = await fetch(`/api/vehicles/${vehicleId}/routes`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(data)
+        });
+        const result = await res.json();
+        if (!res.ok) throw new Error(result.error || 'Failed to log dispatch');
+
+        showToast('Vehicle dispatched successfully!');
+        loadRoutesHistory(vehicleId);
+        
+        document.getElementById('routePerson').value = '';
+        document.getElementById('routeArea').value = '';
+        document.getElementById('routeNotes').value = '';
+
+      } catch (err) {
+        showToast(err.message, 'danger');
+      }
+    });
+
+    // Logout
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.clear();
+      window.location.href = '/login.html';
+    });
+
+    // Initial Load
+    loadVehicles();
+
+  </script>
+</body>
+</html>

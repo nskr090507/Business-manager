@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Business Manager Pro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-body">
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="logo" style="justify-content: center; margin-bottom: 12px;">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>BusinessManager PRO</span>
+      </div>
+      <h1>Welcome Back</h1>
+      <p>Log in to access your business command center</p>
+    </div>
+    
+    <div id="errorAlert" class="badge badge-danger" style="display: none; width: 100%; padding: 12px; margin-bottom: 16px; border-radius: 6px; text-transform: none; font-size: 13px;"></div>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Enter your username" required autocomplete="username">
+      </div>
+      <div class="form-group" style="position: relative;">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
+        <a href="#" id="forgotPasswordLink" style="position: absolute; right: 0; top: 0; font-size: 12px; color: var(--primary); text-decoration: none; font-weight: 500;">Forgot Password?</a>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 8px;">Log In</button>
+    </form>
+
+    <div class="auth-link">
+      Don't have an account? <a href="signup.html">Sign Up</a>
+    </div>
+  </div>
+
+  <!-- Forgot Password Dialog -->
+  <div class="dialog-overlay" id="forgotModal" style="display: none;">
+    <div class="dialog" style="max-width: 450px;">
+      <div class="dialog-header">
+        <h3>Reset Password</h3>
+        <button class="btn-close" id="closeForgotModalBtn" style="background:none; border:none; font-size:24px; cursor:pointer;">&times;</button>
+      </div>
+      <div class="dialog-body">
+        <div id="forgotStatus" class="badge badge-success" style="display: none; width: 100%; padding: 12px; margin-bottom: 16px; border-radius: 6px; text-transform: none; font-size: 13px; font-weight: 500; line-height: 1.4;"></div>
+        <div id="forgotError" class="badge badge-danger" style="display: none; width: 100%; padding: 12px; margin-bottom: 16px; border-radius: 6px; text-transform: none; font-size: 13px; font-weight: 500; line-height: 1.4;"></div>
+        
+        <form id="forgotForm">
+          <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.4;">Enter your username and registered email address below, and we will send you a temporary password.</p>
+          <div class="form-group">
+            <label for="forgotUsername">Username</label>
+            <input type="text" id="forgotUsername" required placeholder="Enter username" style="width:100%; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
+          </div>
+          <div class="form-group" style="margin-top:12px;">
+            <label for="forgotEmail">Registered Email</label>
+            <input type="email" id="forgotEmail" required placeholder="e.g. name@company.com" style="width:100%; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 16px; padding:12px;">Request Temporary Password</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Redirect if already authenticated
+    if (localStorage.getItem('token')) {
+      window.location.href = '/home.html';
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const errorAlert = document.getElementById('errorAlert');
+      errorAlert.style.display = 'none';
+
+      try {
+        const response = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        const data = await response.json();
+        
+        if (!response.ok) {
+          throw new Error(data.error || 'Failed to authenticate');
+        }
+
+        // Store credentials
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('userId', data.user.id);
+        localStorage.setItem('username', data.user.username);
+
+        window.location.href = '/home.html';
+      } catch (err) {
+        errorAlert.textContent = err.message;
+        errorAlert.style.display = 'block';
+      }
+    });
+
+    // Forgot Password Modal Controls
+    const forgotModal = document.getElementById('forgotModal');
+    const forgotLink = document.getElementById('forgotPasswordLink');
+    const closeForgotBtn = document.getElementById('closeForgotModalBtn');
+    const forgotForm = document.getElementById('forgotForm');
+    const forgotStatus = document.getElementById('forgotStatus');
+    const forgotError = document.getElementById('forgotError');
+
+    forgotLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      forgotModal.style.display = 'flex';
+      forgotStatus.style.display = 'none';
+      forgotError.style.display = 'none';
+    });
+
+    closeForgotBtn.addEventListener('click', () => {
+      forgotModal.style.display = 'none';
+      forgotForm.reset();
+    });
+
+    forgotForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      forgotStatus.style.display = 'none';
+      forgotError.style.display = 'none';
+
+      const username = document.getElementById('forgotUsername').value.trim();
+      const email = document.getElementById('forgotEmail').value.trim();
+
+      try {
+        const response = await fetch('/api/forgot-password', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, email })
+        });
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || 'Failed to request reset');
+        }
+
+        let msg = data.message;
+        if (data.tempPassword) {
+          msg += `<br><br><strong style="font-size:14px; color:#1E293B;">Temporary Password: ${data.tempPassword}</strong>`;
+        }
+
+        forgotStatus.innerHTML = msg;
+        forgotStatus.style.display = 'block';
+        forgotForm.reset();
+      } catch (err) {
+        forgotError.textContent = err.message;
+        forgotError.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>

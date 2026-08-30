@@ -1,0 +1,26 @@
+{
+  "name": "business-manager-pro",
+  "version": "1.0.0",
+  "description": "Professional business management web application powered by Firebase",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
+    "exceljs": "^4.4.0",
+    "express": "^4.18.2",
+    "firebase-admin": "^12.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "nodemailer": "^6.9.13",
+    "pdfkit": "^0.15.0",
+    "socket.io": "^4.7.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

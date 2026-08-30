@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stocks - Business Manager Pro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation Sidebar -->
+  <aside>
+    <div class="logo">
+      <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Manager PRO</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="home.html">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+        Dashboard
+      </a></li>
+      <li><a href="workers.html">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Workers
+      </a></li>
+      <li><a href="vehicles.html">
+        <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        Deliveries
+      </a></li>
+      <li class="active"><a href="stocks.html">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Stocks
+      </a></li>
+      <li><a href="finance.html">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        Finances
+      </a></li>
+      <li><a href="reports.html">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Reports
+      </a></li>
+      <li><a href="profile.html">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Settings
+      </a></li>
+    </ul>
+    
+    <div class="sidebar-footer">
+      <div class="user-profile">
+        <div class="avatar" id="userAvatar">U</div>
+        <div class="user-info">
+          <span class="user-name" id="profileName">User</span>
+          <span class="user-email" id="profileEmail">user@admin.com</span>
+        </div>
+      </div>
+      <button class="btn-logout" id="logoutBtn">
+        <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+        Log Out
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main>
+    <header>
+      <div class="header-title">
+        <h1>Stocks</h1>
+        <p>Monitor supply logs, search items, and trace vehicle dispatches</p>
+      </div>
+    </header>
+
+    <!-- Filter Configuration Card -->
+    <div class="panel" style="margin-bottom: 32px;">
+      <div class="panel-header">
+        <h2>Filter Stock Records</h2>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; align-items: flex-end;">
+        <div class="form-group" style="margin-bottom:0;">
+          <label for="filterItem">Item Name</label>
+          <select id="filterItem">
+            <option value="ALL">All Products</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label for="filterType">Type</label>
+          <select id="filterType">
+            <option value="ALL">All Types</option>
+            <option value="INCOMING">Incoming only</option>
+            <option value="OUTGOING">Outgoing only</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label for="filterVehicle">Vehicle Number</label>
+          <input type="text" id="filterVehicle" placeholder="Search vehicle...">
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label for="filterStart">Start Date</label>
+          <input type="date" id="filterStart">
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label for="filterEnd">End Date</label>
+          <input type="date" id="filterEnd">
+        </div>
+      </div>
+    </div>
+
+    <!-- Stock Ledger Panel -->
+    <div class="panel">
+      <div class="panel-header">
+        <h2>Stock Ledger Entries</h2>
+        <button class="btn btn-primary" id="openStockModalBtn">
+          <svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.5;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Log Stock Entry
+        </button>
+      </div>
+      <div class="table-responsive">
+        <table id="stockLedgerTable">
+          <thead>
+            <tr>
+              <th>Date &amp; Time</th>
+              <th>Item</th>
+              <th>Type</th>
+              <th>Qty (kg)</th>
+              <th>Price/kg</th>
+              <th>Total Value</th>
+              <th>Party (Buyer / Seller)</th>
+              <th>Payment Status</th>
+              <th>Vehicle</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="10" style="text-align: center; color: var(--text-secondary);">Loading stock records...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Log Stock Dialog Modal -->
+  <div class="dialog-overlay" id="stockModal" style="display: none;">
+    <div class="dialog">
+      <div class="dialog-header">
+        <h3>Log Stock Transaction</h3>
+        <button class="btn-close" id="closeStockModalBtn" style="background:none; border:none; font-size:24px; cursor:pointer;">&times;</button>
+      </div>
+      <div class="dialog-body">
+        <form id="stockForm">
+          <div class="form-group">
+            <label for="stockType">Transaction Type</label>
+            <select id="stockType" required style="width:100%; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
+              <option value="INCOMING">INCOMING (Purchase/Supply)</option>
+              <option value="OUTGOING">OUTGOING (Sale/Dispatch)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="stockItem">Item Name</label>
+            <select id="stockItem" required style="width:100%; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border-color);"></select>
+          </div>
+          <div class="form-group">
+            <label for="stockQty">Quantity (kg)</label>
+            <input type="number" id="stockQty" min="0.1" step="any" required placeholder="e.g. 500" style="width:100%; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
+          </div>
+          <div class="form-group">
+            <label for="stockPrice">Price per kg ($)</label>
+            <input type="number" id="stockPrice" min="0.01" step="any" required placeholder="e.g. 1.25" style="width:100%; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
+          </div>
+          <div class="form-group">
+            <label for="stockVehicle">Vehicle Selection (Optional)</label>
+            <select id="stockVehicle" style="width:100%; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
+              <option value="">Select a Vehicle</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="stockWorker">Assigned Driver / Worker (Optional)</label>
+            <select id="stockWorker" style="width:100%; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
+              <option value="">Select a Worker</option>
+            </select>
+          </div>
+          
+          <div class="form-group" style="display: flex; align-items: center; gap: 8px; margin-top: 12px; margin-bottom: 12px;">
+            <input type="checkbox" id="stockIsWastage" style="width: auto; margin-bottom: 0; cursor: pointer;">
+            <label for="stockIsWastage" style="margin-bottom: 0; font-weight: 500; cursor: pointer; font-size: 13px;">Mark as Spoilage / Wastage</label>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px;">
+            <div class="form-group">
+              <label for="stockBatch">Batch / Lot Number</label>
+              <input type="text" id="stockBatch" placeholder="e.g. B-10" style="width:100%; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
+            </div>
+            <div class="form-group">
+              <label for="stockExpiry">Expiry Date</label>
+              <input type="date" id="stockExpiry" style="width:100%; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="stockSupplier">Supplier Name</label>
+            <input type="text" id="stockSupplier" placeholder="e.g. Grain Corp" style="width:100%; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="form-group">
+              <label for="stockPartyName" id="stockPartyLabel">Supplier / Seller Name</label>
+              <input type="text" id="stockPartyName" placeholder="e.g. Grain Corp Ltd" style="width:100%; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
+            </div>
+            <div class="form-group">
+              <label for="stockPartyContact">Contact (Phone / Email)</label>
+              <input type="text" id="stockPartyContact" placeholder="e.g. +91 98765 43210" style="width:100%; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 4px;">
+            <div class="form-group">
+              <label for="stockPaymentStatus" id="stockPaymentLabel">Payment Status (Sent?)</label>
+              <select id="stockPaymentStatus" style="width:100%; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
+                <option value="paid">✅ Paid / Received in Full</option>
+                <option value="pending" selected>⏳ Pending / Not Yet Paid</option>
+                <option value="partial">🔶 Partially Paid</option>
+              </select>
+            </div>
+            <div class="form-group" id="stockAmountPaidGroup">
+              <label for="stockAmountPaid" id="stockAmountPaidLabel">Amount Paid ($)</label>
+              <input type="number" id="stockAmountPaid" min="0" step="0.01" placeholder="0.00" style="width:100%; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="stockDate">Date & Time</label>
+            <input type="datetime-local" id="stockDate" required style="width:100%; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 16px; padding:12px;">Log Transaction</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script>
+    const token = localStorage.getItem('token');
+    const username = localStorage.getItem('username') || 'User';
+    if (!token) window.location.href = '/login.html';
+
+    // Set brand items
+    document.getElementById('profileName').textContent = username;
+    document.getElementById('profileEmail').textContent = `${username.toLowerCase()}@manager.com`;
+    document.getElementById('userAvatar').textContent = username.charAt(0).toUpperCase();
+
+    function showToast(msg, type = 'success') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.innerHTML = `
+        <div style="width: 8px; height: 8px; border-radius: 50%; background-color: var(--${type === 'danger' ? 'danger' : 'success'})"></div>
+        <div class="toast-msg">${msg}</div>
+      `;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 4000);
+    }
+
+    let allTransactions = [];
+
+    // Load Stock Entries
+    async function loadStockLogs() {
+      try {
+        const res = await fetch('/api/stocks', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (res.status === 401) {
+          localStorage.clear();
+          window.location.href = '/login.html';
+          return;
+        }
+        const data = await res.json();
+        allTransactions = data.transactions || [];
+        
+        // Populate stock Item dropdown and Filter Item dropdown dynamically
+        const itemSelect = document.getElementById('stockItem');
+        const filterItemSelect = document.getElementById('filterItem');
+        
+        itemSelect.innerHTML = '';
+        filterItemSelect.innerHTML = '<option value="ALL">All Products</option>';
+        
+        if (data.products && data.products.length > 0) {
+          data.products.forEach(p => {
+            itemSelect.innerHTML += `<option value="${p.name}">${p.name}</option>`;
+            filterItemSelect.innerHTML += `<option value="${p.name}">${p.name}</option>`;
+          });
+        } else {
+          itemSelect.innerHTML = `<option value="">(Add products in Settings first)</option>`;
+        }
+        
+        renderTable();
+      } catch (err) {
+        showToast('Error loading stock records', 'danger');
+      }
+    }
+
+    // Dynamic Filter Trigger
+    function renderTable() {
+      const queryItem = document.getElementById('filterItem').value.toLowerCase();
+      const queryType = document.getElementById('filterType').value;
+      const queryVehicle = document.getElementById('filterVehicle').value.toLowerCase();
+      const startVal = document.getElementById('filterStart').value;
+      const endVal = document.getElementById('filterEnd').value;
+
+      const tbody = document.querySelector('#stockLedgerTable tbody');
+      tbody.innerHTML = '';
+
+      const filtered = allTransactions.filter(s => {
+        // Item Name match (dropdown check)
+        if (queryItem !== 'all' && s.item_name.toLowerCase() !== queryItem) return false;
+        
+        // Type match
+        if (queryType !== 'ALL' && s.type !== queryType) return false;
+
+        // Vehicle number match
+        if (queryVehicle && !s.vehicle_number.toLowerCase().includes(queryVehicle)) return false;
+
+        // Date constraints
+        const dateStr = s.transaction_date.split('T')[0];
+        if (startVal && dateStr < startVal) return false;
+        if (endVal && dateStr > endVal) return false;
+
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="10" style="text-align: center; color: var(--text-secondary);">No matching stock records found.</td></tr>';
+      } else {
+        filtered.forEach(s => {
+          const isInc = s.type === 'INCOMING';
+          const localDateStr = new Date(s.transaction_date).toLocaleString(undefined, {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+          });
+
+          const payBadge = (() => {
+            const st = s.payment_status || 'pending';
+            const totalOwed = s.total_amount || 0;
+            const paid = s.amount_paid || 0;
+            const remaining = totalOwed - paid;
+            if (st === 'paid') return '<span class="badge badge-success" style="font-size:10px;">✅ Paid</span>';
+            if (st === 'partial') return `<span class="badge" style="background:#fff3cd;color:#856404;font-size:10px;">🔶 Partial<br>$${paid.toFixed(2)} / $${totalOwed.toFixed(2)}<br><small>Due: $${remaining.toFixed(2)}</small></span>`;
+            return `<span class="badge badge-danger" style="font-size:10px;">⏳ Pending<br><small>$${totalOwed.toFixed(2)} due</small></span>`;
+          })();
+
+          tbody.innerHTML += `
+            <tr>
+              <td>${localDateStr}</td>
+              <td style="font-weight: 600;">${s.item_name}</td>
+              <td><span class="badge ${isInc ? 'badge-success' : 'badge-danger'}">${s.type}${s.is_wastage ? ' ⚠️' : ''}</span></td>
+              <td style="font-weight: 500;">${s.quantity.toFixed(1)} kg</td>
+              <td>$${s.price.toFixed(2)}</td>
+              <td style="font-weight: 600;">$${s.total_amount.toFixed(2)}</td>
+              <td style="font-size:12px;">
+                ${s.party_name ? `<span style="font-weight:600;">${s.party_name}</span>` : '<span style="color:var(--text-secondary)">—</span>'}
+                ${s.party_contact ? `<br><span style="color:var(--text-secondary);font-size:11px;">${s.party_contact}</span>` : ''}
+              </td>
+              <td>${payBadge}</td>
+              <td style="font-size:12px;">${s.vehicle_number || '—'}</td>
+              <td class="actions">
+                <button class="delete" onclick="deleteStockEntry('${s.id}')" title="Delete Entry">
+                  <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                </button>
+              </td>
+            </tr>
+          `;
+        });
+      }
+    }
+
+    // Event hooks for filters
+    document.getElementById('filterItem').addEventListener('change', renderTable);
+    document.getElementById('filterType').addEventListener('change', renderTable);
+    document.getElementById('filterVehicle').addEventListener('input', renderTable);
+    document.getElementById('filterStart').addEventListener('change', renderTable);
+    document.getElementById('filterEnd').addEventListener('change', renderTable);
+
+    // Modal Control
+    const stockModal = document.getElementById('stockModal');
+    const openStockModalBtn = document.getElementById('openStockModalBtn');
+    const closeStockModalBtn = document.getElementById('closeStockModalBtn');
+    const stockForm = document.getElementById('stockForm');
+
+    openStockModalBtn.addEventListener('click', () => {
+      stockModal.style.display = 'flex';
+      const now = new Date();
+      const localIso = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+      document.getElementById('stockDate').value = localIso;
+    });
+
+    closeStockModalBtn.addEventListener('click', () => {
+      stockModal.style.display = 'none';
+      stockForm.reset();
+    });
+
+    // Toggle type locking for wastage
+    document.getElementById('stockIsWastage').addEventListener('change', (e) => {
+      const typeSelect = document.getElementById('stockType');
+      if (e.target.checked) {
+        typeSelect.value = 'OUTGOING';
+        typeSelect.disabled = true;
+      } else {
+        typeSelect.disabled = false;
+      }
+    });
+
+    // Dynamic party/payment labels based on transaction type
+    function updatePartyLabels() {
+      const isIncoming = document.getElementById('stockType').value === 'INCOMING';
+      document.getElementById('stockPartyLabel').textContent = isIncoming ? 'Supplier / Seller Name' : 'Buyer / Customer Name';
+      document.getElementById('stockPartyContact').placeholder = isIncoming ? 'e.g. +91 98765 43210' : 'e.g. buyer@email.com';
+      document.getElementById('stockPaymentLabel').textContent = isIncoming ? 'Payment Status (Sent?)' : 'Payment Status (Received?)';
+      document.getElementById('stockAmountPaidLabel').textContent = isIncoming ? 'Amount Paid ($)' : 'Amount Received ($)';
+    }
+    document.getElementById('stockType').addEventListener('change', updatePartyLabels);
+    updatePartyLabels();
+
+    document.getElementById('stockPaymentStatus').addEventListener('change', (e) => {
+      const group = document.getElementById('stockAmountPaidGroup');
+      group.style.opacity = e.target.value === 'paid' ? '0.5' : '1';
+      group.style.pointerEvents = e.target.value === 'paid' ? 'none' : 'auto';
+      if (e.target.value === 'paid') document.getElementById('stockAmountPaid').value = '';
+    });
+
+    // Form Submission
+    stockForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const vehicleSelect = document.getElementById('stockVehicle');
+      const selectedVehicleOpt = vehicleSelect.options[vehicleSelect.selectedIndex];
+      const vehicleId = vehicleSelect.value;
+      const vehicleNumber = selectedVehicleOpt && vehicleId ? selectedVehicleOpt.getAttribute('data-plate') : '';
+
+      const workerSelect = document.getElementById('stockWorker');
+      const selectedWorkerOpt = workerSelect.options[workerSelect.selectedIndex];
+      const workerId = workerSelect.value;
+      const workerName = selectedWorkerOpt && workerId ? selectedWorkerOpt.getAttribute('data-name') : '';
+
+      const payload = {
+        item_name: document.getElementById('stockItem').value,
+        type: document.getElementById('stockType').value,
+        quantity: parseFloat(document.getElementById('stockQty').value),
+        price: parseFloat(document.getElementById('stockPrice').value),
+        vehicle_id: vehicleId || null,
+        vehicle_number: vehicleNumber,
+        worker_id: workerId || null,
+        worker_name: workerName,
+        is_wastage: document.getElementById('stockIsWastage').checked,
+        batch_number: document.getElementById('stockBatch').value.trim(),
+        expiry_date: document.getElementById('stockExpiry').value,
+        supplier_info: document.getElementById('stockSupplier').value.trim(),
+        party_name: document.getElementById('stockPartyName').value.trim(),
+        party_contact: document.getElementById('stockPartyContact').value.trim(),
+        payment_status: document.getElementById('stockPaymentStatus').value,
+        amount_paid: parseFloat(document.getElementById('stockAmountPaid').value) || 0,
+        transaction_date: document.getElementById('stockDate').value
+      };
+
+      try {
+        const res = await fetch('/api/stocks', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await res.json();
+        if (!res.ok) throw new Error(result.error || 'Failed to save stock entry');
+
+        showToast('Stock transaction successfully logged!');
+        stockModal.style.display = 'none';
+        document.getElementById('stockType').disabled = false;
+        stockForm.reset();
+        loadStockLogs();
+      } catch (err) {
+        showToast(err.message, 'danger');
+      }
+    });
+
+    // Deletion
+    window.deleteStockEntry = async function(id) {
+      if (!confirm('Are you sure you want to delete this stock transaction? This will also remove the linked general ledger entry.')) return;
+      try {
+        const res = await fetch(`/api/stocks/${id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const result = await res.json();
+        if (!res.ok) throw new Error(result.error || 'Failed to delete stock entry');
+
+        showToast('Stock record and linked general ledger transaction deleted.');
+        loadStockLogs();
+      } catch (err) {
+        showToast(err.message, 'danger');
+      }
+    }
+
+    // Logout
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.clear();
+      window.location.href = '/login.html';
+    });
+
+    async function loadWorkersAndVehicles() {
+      try {
+        const workersRes = await fetch('/api/workers', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const workers = await workersRes.json();
+        const workerSelect = document.getElementById('stockWorker');
+        workerSelect.innerHTML = '<option value="">Select a Worker (Optional)</option>';
+        workers.forEach(w => {
+          if (w.status === 'active') {
+            workerSelect.innerHTML += `<option value="${w.id}" data-name="${w.name}">${w.name} (${w.role})</option>`;
+          }
+        });
+
+        const vehiclesRes = await fetch('/api/vehicles', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const vehicles = await vehiclesRes.json();
+        const vehicleSelect = document.getElementById('stockVehicle');
+        vehicleSelect.innerHTML = '<option value="">Select a Vehicle (Optional)</option>';
+        vehicles.forEach(v => {
+          if (v.status === 'active') {
+            vehicleSelect.innerHTML += `<option value="${v.id}" data-plate="${v.license_plate}">${v.make} ${v.model} (${v.license_plate})</option>`;
+          }
+        });
+      } catch (err) {
+        console.error('Error loading workers and vehicles:', err);
+      }
+    }
+
+    // Initial Load
+    loadStockLogs();
+    loadWorkersAndVehicles();
+  </script>
+</body>
+</html>
