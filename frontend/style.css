@@ -823,4 +823,103 @@ tr:hover td {
     margin-left: 0;
     padding: 20px;
   }
+}/* =========================================
+   Mobile Responsiveness (max-width: 768px)
+   ========================================= */
+@media (max-width: 768px) {
+  /* Sidebar Off-Canvas */
+  aside {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  body.nav-open aside {
+    transform: translateX(0);
+  }
+
+  /* Overlay */
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 90;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  body.nav-open .sidebar-overlay {
+    display: block;
+    opacity: 1;
+  }
+
+  /* Main Content Adjustment */
+  main {
+    margin-left: 0;
+    padding: 20px 15px;
+    width: 100%;
+  }
+
+  /* Mobile Header Button */
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-primary);
+    padding: 5px;
+  }
+  
+  .mobile-menu-btn svg {
+    width: 28px;
+    height: 28px;
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+
+  /* Grids and Cards to Single Column */
+  .kpi-grid,
+  .quick-actions,
+  .charts-grid,
+  .dashboard-grid,
+  .form-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .kpi-card,
+  .action-btn,
+  .stat-card {
+    width: 100%;
+  }
+
+  /* Fix overflowing elements */
+  .table-container {
+    overflow-x: auto;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  table {
+    min-width: 600px;
+  }
+
+  .modal-content {
+    width: 95%;
+    margin: 20px auto;
+    padding: 20px;
+  }
+  
+  /* specific layout tweaks */
+  .action-panel, .panel, .card {
+    padding: 15px;
+  }
 }
