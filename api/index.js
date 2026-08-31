@@ -1,6 +1,4 @@
 const express = require('express');
-const http = require('http');
-const { Server } = require('socket.io');
 const admin = require('firebase-admin');
 const path = require('path');
 const dotenv = require('dotenv');
@@ -14,14 +12,6 @@ const jwt = require('jsonwebtoken');
 dotenv.config();
 
 const app = express();
-const server = http.createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE"]
-  }
-});
-
 const PORT = process.env.PORT || 3000;
 const JWT_SECRET = process.env.JWT_SECRET || 'your-fallback-secret-key-change-in-production';
 
@@ -1620,6 +1610,4 @@ app.delete('/api/stocks/:id', requireAuth, async (req, res) => {
 
 // ----------------------------------------------------
 // Start Express Server
-server.listen(PORT, () => {
-  console.log(`Express server running on http://localhost:${PORT}`);
-});
+module.exports = app;
