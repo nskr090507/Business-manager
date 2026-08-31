@@ -1045,9 +1045,7 @@ app.post('/api/notifications/check-triggers', requireAuth, async (req, res) => {
             is_read: false,
             created_at: new Date().toISOString()
           });
-
-          io.to(req.userId).emit('notification', { message: msg, type: 'maintenance' });
-          added.push(msg);
+added.push(msg);
         }
       }
     });
@@ -1097,8 +1095,7 @@ app.post('/api/notifications/check-triggers', requireAuth, async (req, res) => {
             is_read: false,
             created_at: new Date().toISOString()
           });
-          io.to(req.userId).emit('notification', { message: msg, type: 'low_stock' });
-          added.push(msg);
+added.push(msg);
         }
       }
     });
@@ -1126,8 +1123,7 @@ app.post('/api/notifications/check-triggers', requireAuth, async (req, res) => {
               is_read: false,
               created_at: new Date().toISOString()
             });
-            io.to(req.userId).emit('notification', { message: msg, type: 'expiry' });
-            added.push(msg);
+added.push(msg);
           }
         }
       }
@@ -1623,29 +1619,7 @@ app.delete('/api/stocks/:id', requireAuth, async (req, res) => {
 });
 
 // ----------------------------------------------------
-// REALTIME SOCKET CONNECTIONS
-// ----------------------------------------------------
-io.on('connection', (socket) => {
-  console.log('Socket client connected:', socket.id);
-
-  socket.on('authenticate', (token) => {
-    try {
-      const decoded = jwt.verify(token, JWT_SECRET);
-      socket.join(decoded.userId);
-      console.log(`Socket client ${socket.id} authenticated for user ${decoded.userId}`);
-      socket.emit('authenticated', { success: true });
-    } catch (err) {
-      console.error('Socket token verification failed:', err.message);
-      socket.emit('authenticated', { success: false, error: err.message });
-    }
-  });
-
-  socket.on('disconnect', () => {
-    console.log('Socket client disconnected:', socket.id);
-  });
-});
-
-// Start Express + HTTP + Socket Server
+// Start Express Server
 server.listen(PORT, () => {
   console.log(`Express server running on http://localhost:${PORT}`);
 });
