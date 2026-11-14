@@ -3,8 +3,149 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Settings & Profile - Business Manager Pro</title>
+  <title>Settings & Categories - Business Manager Pro</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Category & Subcategory Navigation Styling */
+    .settings-hero {
+      margin-bottom: 24px;
+    }
+    .category-tabs-container {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 10px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+    .category-tabs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 8px;
+    }
+    .cat-tab-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border: 1px solid transparent;
+      border-radius: var(--radius-sm);
+      background: var(--bg-primary);
+      cursor: pointer;
+      text-align: left;
+      transition: var(--transition);
+      color: var(--text-secondary);
+      font-family: inherit;
+    }
+    .cat-tab-btn:hover {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      border-color: var(--border-color);
+    }
+    .cat-tab-btn.active {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .cat-tab-icon {
+      font-size: 24px;
+      line-height: 1;
+    }
+    .cat-tab-meta {
+      display: flex;
+      flex-direction: column;
+    }
+    .cat-tab-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .cat-tab-count {
+      font-size: 11px;
+      opacity: 0.8;
+      margin-top: 2px;
+    }
+
+    /* Subcategory Filter Pills */
+    .subcat-pills-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      margin-bottom: 24px;
+    }
+    .subcat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 1px solid var(--border-color);
+      background: var(--card-bg);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+    .subcat-pill:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+    .subcat-pill.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      box-shadow: 0 2px 6px rgba(79, 70, 229, 0.25);
+    }
+
+    /* Subcategory Section Chips */
+    .subcat-header-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      background: var(--bg-secondary);
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .subcat-header-chip span.main-cat {
+      color: var(--primary);
+    }
+
+    /* Animation */
+    .settings-section-card {
+      transition: all 0.2s ease-in-out;
+    }
+    .settings-section-card.hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 768px) {
+      .category-tabs {
+        grid-template-columns: 1fr 1fr;
+      }
+      .cat-tab-btn {
+        padding: 10px;
+      }
+      .cat-tab-icon {
+        font-size: 20px;
+      }
+    }
+    @media (max-width: 480px) {
+      .category-tabs {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -64,192 +205,276 @@
   <!-- Main Content -->
   <main>
     <header>
+      <button class="mobile-menu-btn" onclick="document.body.classList.toggle('nav-open')" aria-label="Open menu" style="display:none;">
+        <svg viewBox="0 0 24 24" style="width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
       <div class="header-title">
         <h1>Command Center Settings</h1>
         <p>Manage product inventories, configure budgets, email notifications, and security</p>
       </div>
     </header>
 
-    <!-- Two-Column Settings Grid -->
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; align-items: flex-start;">
-      
-      <!-- Left Column: Profile Card & Database Info -->
-      <div style="display: flex; flex-direction: column; gap: 24px;">
-        
-        <!-- Profile Card -->
-        <div class="panel">
-          <div class="panel-header" style="border-bottom: 1px solid var(--border-color); padding-bottom: 16px; margin-bottom: 20px;">
-            <h2>Business Profile</h2>
+    <!-- Master Category Navigation Tabs -->
+    <div class="category-tabs-container">
+      <div class="category-tabs">
+        <button type="button" class="cat-tab-btn active" id="tab-cat-general" onclick="selectCategory('general')">
+          <span class="cat-tab-icon">🏢</span>
+          <div class="cat-tab-meta">
+            <span class="cat-tab-title">General & Business</span>
+            <span class="cat-tab-count">2 Subcategories</span>
           </div>
-          <div style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 24px;">
-            <div class="avatar" id="profileAvatarBig" style="width: 80px; height: 80px; font-size: 32px; border-radius: 50%; background-color: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 700; margin-bottom: 16px; box-shadow: var(--shadow-sm);">U</div>
-            <h3 id="profileFullName" style="font-size: 18px; font-weight: 700; color: var(--text-primary);">Full Name</h3>
-            <p id="profileBusiness" style="font-size: 14px; color: var(--primary); font-weight: 600; margin-top: 4px;">Company Name</p>
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 12px; font-size: 13px;">
-            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
-              <span style="color: var(--text-secondary);">Username:</span>
-              <span id="profileUsername" style="font-weight: 600;">username</span>
-            </div>
-            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
-              <span style="color: var(--text-secondary);">Email Address:</span>
-              <span id="profileEmailVal" style="font-weight: 600;">email@address.com</span>
-            </div>
-            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
-              <span style="color: var(--text-secondary);">Phone Number:</span>
-              <span id="profilePhoneVal" style="font-weight: 600;">+1 555-5555</span>
-            </div>
-          </div>
-        </div>
+        </button>
 
-        <!-- Database status card -->
-        <div class="panel">
-          <div class="panel-header">
-            <h2>System Connection</h2>
+        <button type="button" class="cat-tab-btn" id="tab-cat-catalogs" onclick="selectCategory('catalogs')">
+          <span class="cat-tab-icon">📦</span>
+          <div class="cat-tab-meta">
+            <span class="cat-tab-title">Catalogs & Masters</span>
+            <span class="cat-tab-count">2 Subcategories</span>
           </div>
-          <div style="display:flex; flex-direction:column; gap:12px; font-size:13px;">
-            <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border-color); padding-bottom:8px;">
-              <span style="color:var(--text-secondary);">Database Connection:</span>
-              <span style="font-weight:600; color:var(--success);">Firebase Realtime (Active)</span>
-            </div>
-            <div style="display:flex; justify-content:space-between;">
-              <span style="color:var(--text-secondary);">Status:</span>
-              <span style="font-weight:600; color:var(--success);">Operational</span>
-            </div>
+        </button>
+
+        <button type="button" class="cat-tab-btn" id="tab-cat-system" onclick="selectCategory('system')">
+          <span class="cat-tab-icon">⚙️</span>
+          <div class="cat-tab-meta">
+            <span class="cat-tab-title">Preferences & Security</span>
+            <span class="cat-tab-count">2 Subcategories</span>
           </div>
-        </div>
-      </div>
+        </button>
 
-      <!-- Right Column: Product Catalog, Configurations, and Password Update -->
-      <div style="display: flex; flex-direction: column; gap: 24px; flex-grow: 2;">
-        
-        <!-- Product Catalog Management Card -->
-        <div class="panel">
-          <div class="panel-header" style="border-bottom: 1px solid var(--border-color); padding-bottom: 16px; margin-bottom: 16px;">
-            <h2>Product Catalog</h2>
+        <button type="button" class="cat-tab-btn" id="tab-cat-all" onclick="selectCategory('all')">
+          <span class="cat-tab-icon">📑</span>
+          <div class="cat-tab-meta">
+            <span class="cat-tab-title">View All Settings</span>
+            <span class="cat-tab-count">All 6 Sections</span>
           </div>
-          <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.4;">Add products to register them in stock tracking. Initial stock defines starting inventory level before transactions.</p>
-          
-          <!-- Inline Add Product Form -->
-          <form id="productForm" style="display: grid; grid-template-columns: 2fr 1.5fr auto; gap: 12px; margin-bottom: 24px; align-items: flex-end;">
-            <div class="form-group" style="margin-bottom:0;">
-              <label for="prodName" style="font-size: 12px; margin-bottom: 4px;">Product Name</label>
-              <input type="text" id="prodName" required placeholder="e.g. Wheat, Barley" style="padding: 8px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); font-size: 13px;">
-            </div>
-            <div class="form-group" style="margin-bottom:0;">
-              <label for="prodStock" style="font-size: 12px; margin-bottom: 4px;">Initial Stock (kg)</label>
-              <input type="number" id="prodStock" min="0" step="any" required placeholder="e.g. 1000" style="padding: 8px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); font-size: 13px;">
-            </div>
-            <button type="submit" class="btn btn-primary" style="padding: 9px 16px; font-size: 13px;">Add Item</button>
-          </form>
-
-          <!-- Products list Table -->
-          <div class="table-responsive">
-            <table id="productCatalogTable" style="font-size: 13px;">
-              <thead>
-                <tr>
-                  <th>Product Name</th>
-                  <th>Initial Stock</th>
-                  <th style="text-align: right;">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan="3" style="text-align: center; color: var(--text-secondary);">Loading catalog products...</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Worker Roles Configurator Card -->
-        <div class="panel">
-          <div class="panel-header" style="border-bottom: 1px solid var(--border-color); padding-bottom: 16px; margin-bottom: 16px;">
-            <h2>Worker Roles Catalog</h2>
-          </div>
-          <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.4;">Configure worker roles/job titles (e.g. Route Driver, Supervisor) to select them during worker creation.</p>
-          
-          <!-- Inline Add Role Form -->
-          <form id="roleForm" style="display: grid; grid-template-columns: 2.5fr auto; gap: 12px; margin-bottom: 24px; align-items: flex-end;">
-            <div class="form-group" style="margin-bottom:0;">
-              <label for="roleName" style="font-size: 12px; margin-bottom: 4px;">Role Title</label>
-              <input type="text" id="roleName" required placeholder="e.g. Route Driver, Supervisor" style="padding: 8px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); font-size: 13px;">
-            </div>
-            <button type="submit" class="btn btn-primary" style="padding: 9px 16px; font-size: 13px;">Add Role</button>
-          </form>
-
-          <!-- Roles list Table -->
-          <div class="table-responsive">
-            <table id="roleCatalogTable" style="font-size: 13px;">
-              <thead>
-                <tr>
-                  <th>Role Name</th>
-                  <th style="text-align: right;">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan="2" style="text-align: center; color: var(--text-secondary);">Loading custom roles...</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- App Configurations Card -->
-        <div class="panel">
-          <div class="panel-header">
-            <h2>App Configurations</h2>
-          </div>
-          <form id="settingsForm">
-            <div class="form-group">
-              <label for="settingsBudget">Monthly Expense Budget Threshold ($)</label>
-              <input type="number" id="settingsBudget" min="0" step="1" required placeholder="e.g. 5000">
-              <p style="font-size:12px; color:var(--text-secondary); margin-top:4px;">Get alerted on dashboard if monthly operational expenses exceed this threshold.</p>
-            </div>
-            
-            <div class="form-group" style="margin-top: 16px;">
-              <label for="settingsLowStock">Low Stock Alert Threshold (kg)</label>
-              <input type="number" id="settingsLowStock" min="1" step="any" required placeholder="e.g. 100">
-              <p style="font-size:12px; color:var(--text-secondary); margin-top:4px;">Get alerted on dashboard if product inventory levels drop below this value.</p>
-            </div>
-            
-            <div class="form-group" style="flex-direction:row; align-items:center; gap:12px; margin-top: 16px;">
-              <input type="checkbox" id="settingsEmail" style="width: auto; cursor:pointer;">
-              <label for="settingsEmail" style="cursor:pointer; margin-bottom:0;">Enable Automated Email Notifications (SMTP)</label>
-            </div>
-            <p style="font-size:12px; color:var(--text-secondary); margin-left: 28px; margin-top: -8px;">Sends automated alerts for engine service alerts, milestones, and threshold notifications.</p>
-
-            <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Save Configurations</button>
-          </form>
-        </div>
-
-        <!-- Change Password Card -->
-        <div class="panel">
-          <div class="panel-header">
-            <h2>Change Account Password</h2>
-          </div>
-          <form id="passwordForm">
-            <div class="form-group">
-              <label for="currentPassword">Current Password</label>
-              <input type="password" id="currentPassword" required placeholder="Enter current password">
-            </div>
-            <div class="form-group" style="margin-top: 12px;">
-              <label for="newPassword">New Password</label>
-              <input type="password" id="newPassword" minlength="6" required placeholder="At least 6 characters">
-            </div>
-            <div class="form-group" style="margin-top: 12px;">
-              <label for="confirmNewPassword">Confirm New Password</label>
-              <input type="password" id="confirmNewPassword" minlength="6" required placeholder="Repeat new password">
-            </div>
-            <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Update Password</button>
-          </form>
-        </div>
-
+        </button>
       </div>
     </div>
 
+    <!-- Subcategory Pills Filter Bar -->
+    <div class="subcat-pills-container" id="subcatPillsBar">
+      <!-- Dynamically rendered based on active category -->
+    </div>
+
+    <!-- Settings Sections Grid -->
+    <div id="settingsSectionsGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; align-items: flex-start;">
+      
+      <!-- ==================================================== -->
+      <!-- CATEGORY 1: GENERAL & BUSINESS                       -->
+      <!-- ==================================================== -->
+
+      <!-- Subcategory 1.1: Business Profile -->
+      <div class="panel settings-section-card" data-category="general" data-subcat="profile" id="sec-profile">
+        <div class="subcat-header-chip">
+          <span class="main-cat">General</span> › <span>Business Profile</span>
+        </div>
+        <div class="panel-header" style="border-bottom: 1px solid var(--border-color); padding-bottom: 14px; margin-bottom: 20px;">
+          <h2>Business Profile</h2>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 24px;">
+          <div class="avatar" id="profileAvatarBig" style="width: 80px; height: 80px; font-size: 32px; border-radius: 50%; background-color: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 700; margin-bottom: 16px; box-shadow: var(--shadow-sm);">U</div>
+          <h3 id="profileFullName" style="font-size: 18px; font-weight: 700; color: var(--text-primary);">Full Name</h3>
+          <p id="profileBusiness" style="font-size: 14px; color: var(--primary); font-weight: 600; margin-top: 4px;">Company Name</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 12px; font-size: 13px;">
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
+            <span style="color: var(--text-secondary);">Username:</span>
+            <span id="profileUsername" style="font-weight: 600;">username</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
+            <span style="color: var(--text-secondary);">Email Address:</span>
+            <span id="profileEmailVal" style="font-weight: 600;">email@address.com</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
+            <span style="color: var(--text-secondary);">Phone Number:</span>
+            <span id="profilePhoneVal" style="font-weight: 600;">+1 555-5555</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Subcategory 1.2: System Connection -->
+      <div class="panel settings-section-card" data-category="general" data-subcat="connection" id="sec-connection">
+        <div class="subcat-header-chip">
+          <span class="main-cat">General</span> › <span>System Connection</span>
+        </div>
+        <div class="panel-header">
+          <h2>System Connection Status</h2>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:12px; font-size:13px; margin-top:12px;">
+          <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border-color); padding-bottom:8px;">
+            <span style="color:var(--text-secondary);">Database Engine:</span>
+            <span style="font-weight:600; color:var(--success);">Firebase Realtime (Online)</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border-color); padding-bottom:8px;">
+            <span style="color:var(--text-secondary);">Backend Mode:</span>
+            <span style="font-weight:600; color:var(--primary);">REST / Serverless Ready</span>
+          </div>
+          <div style="display:flex; justify-content:space-between;">
+            <span style="color:var(--text-secondary);">Service Status:</span>
+            <span style="font-weight:600; color:var(--success);">● Active & Healthy</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================================================== -->
+      <!-- CATEGORY 2: CATALOGS & MASTERS                       -->
+      <!-- ==================================================== -->
+
+      <!-- Subcategory 2.1: Product Catalog -->
+      <div class="panel settings-section-card" data-category="catalogs" data-subcat="products" id="sec-products" style="grid-column: span 1;">
+        <div class="subcat-header-chip">
+          <span class="main-cat">Catalogs</span> › <span>Product Catalog</span>
+        </div>
+        <div class="panel-header" style="border-bottom: 1px solid var(--border-color); padding-bottom: 14px; margin-bottom: 16px;">
+          <h2>Product Catalog</h2>
+        </div>
+        <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.4;">
+          Add products to register them in stock tracking. Initial stock defines starting inventory level before transactions.
+        </p>
+        
+        <!-- Inline Add Product Form -->
+        <form id="productForm" style="display: grid; grid-template-columns: 2fr 1.5fr auto; gap: 12px; margin-bottom: 24px; align-items: flex-end;">
+          <div class="form-group" style="margin-bottom:0;">
+            <label for="prodName" style="font-size: 12px; margin-bottom: 4px;">Product Name</label>
+            <input type="text" id="prodName" required placeholder="e.g. Wheat, Barley" style="padding: 8px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); font-size: 13px;">
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label for="prodStock" style="font-size: 12px; margin-bottom: 4px;">Initial Stock (kg)</label>
+            <input type="number" id="prodStock" min="0" step="any" required placeholder="e.g. 1000" style="padding: 8px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); font-size: 13px;">
+          </div>
+          <button type="submit" class="btn btn-primary" style="padding: 9px 16px; font-size: 13px;">Add Item</button>
+        </form>
+
+        <!-- Products list Table -->
+        <div class="table-responsive">
+          <table id="productCatalogTable" style="font-size: 13px;">
+            <thead>
+              <tr>
+                <th>Product Name</th>
+                <th>Initial Stock</th>
+                <th style="text-align: right;">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="3" style="text-align: center; color: var(--text-secondary);">Loading catalog products...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Subcategory 2.2: Worker Roles -->
+      <div class="panel settings-section-card" data-category="catalogs" data-subcat="roles" id="sec-roles">
+        <div class="subcat-header-chip">
+          <span class="main-cat">Catalogs</span> › <span>Worker Roles</span>
+        </div>
+        <div class="panel-header" style="border-bottom: 1px solid var(--border-color); padding-bottom: 14px; margin-bottom: 16px;">
+          <h2>Worker Roles Catalog</h2>
+        </div>
+        <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.4;">
+          Configure worker roles/job titles (e.g. Route Driver, Supervisor) to select them during worker creation.
+        </p>
+        
+        <!-- Inline Add Role Form -->
+        <form id="roleForm" style="display: grid; grid-template-columns: 2.5fr auto; gap: 12px; margin-bottom: 24px; align-items: flex-end;">
+          <div class="form-group" style="margin-bottom:0;">
+            <label for="roleName" style="font-size: 12px; margin-bottom: 4px;">Role Title</label>
+            <input type="text" id="roleName" required placeholder="e.g. Route Driver, Supervisor" style="padding: 8px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); font-size: 13px;">
+          </div>
+          <button type="submit" class="btn btn-primary" style="padding: 9px 16px; font-size: 13px;">Add Role</button>
+        </form>
+
+        <!-- Roles list Table -->
+        <div class="table-responsive">
+          <table id="roleCatalogTable" style="font-size: 13px;">
+            <thead>
+              <tr>
+                <th>Role Name</th>
+                <th style="text-align: right;">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="2" style="text-align: center; color: var(--text-secondary);">Loading custom roles...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ==================================================== -->
+      <!-- CATEGORY 3: PREFERENCES & SECURITY                   -->
+      <!-- ==================================================== -->
+
+      <!-- Subcategory 3.1: App Configurations & Alerts -->
+      <div class="panel settings-section-card" data-category="system" data-subcat="configs" id="sec-configs">
+        <div class="subcat-header-chip">
+          <span class="main-cat">Preferences</span> › <span>Alerts & Budgets</span>
+        </div>
+        <div class="panel-header">
+          <h2>App Configurations</h2>
+        </div>
+        <form id="settingsForm">
+          <div class="form-group" style="margin-top: 12px;">
+            <label for="settingsBudget">Monthly Expense Budget Threshold ($)</label>
+            <input type="number" id="settingsBudget" min="0" step="1" required placeholder="e.g. 5000">
+            <p style="font-size:12px; color:var(--text-secondary); margin-top:4px;">Get alerted on dashboard if monthly operational expenses exceed this threshold.</p>
+          </div>
+          
+          <div class="form-group" style="margin-top: 16px;">
+            <label for="settingsLowStock">Low Stock Alert Threshold (kg)</label>
+            <input type="number" id="settingsLowStock" min="1" step="any" required placeholder="e.g. 100">
+            <p style="font-size:12px; color:var(--text-secondary); margin-top:4px;">Get alerted on dashboard if product inventory levels drop below this value.</p>
+          </div>
+          
+          <div class="form-group" style="flex-direction:row; align-items:center; gap:12px; margin-top: 16px;">
+            <input type="checkbox" id="settingsEmail" style="width: auto; cursor:pointer;">
+            <label for="settingsEmail" style="cursor:pointer; margin-bottom:0;">Enable Automated Email Notifications (SMTP)</label>
+          </div>
+          <p style="font-size:12px; color:var(--text-secondary); margin-left: 28px; margin-top: -8px;">Sends automated alerts for engine service alerts, milestones, and threshold notifications.</p>
+
+          <button type="submit" class="btn btn-primary" style="margin-top: 20px; width: 100%;">Save Configurations</button>
+        </form>
+      </div>
+
+      <!-- Subcategory 3.2: Account Password & Security -->
+      <div class="panel settings-section-card" data-category="system" data-subcat="security" id="sec-security">
+        <div class="subcat-header-chip">
+          <span class="main-cat">Preferences</span> › <span>Account Security</span>
+        </div>
+        <div class="panel-header">
+          <h2>Change Account Password</h2>
+        </div>
+        <form id="passwordForm">
+          <div class="form-group" style="margin-top: 12px;">
+            <label for="currentPassword">Current Password</label>
+            <input type="password" id="currentPassword" required placeholder="Enter current password">
+          </div>
+          <div class="form-group" style="margin-top: 12px;">
+            <label for="newPassword">New Password</label>
+            <input type="password" id="newPassword" minlength="6" required placeholder="At least 6 characters">
+          </div>
+          <div class="form-group" style="margin-top: 12px;">
+            <label for="confirmNewPassword">Confirm New Password</label>
+            <input type="password" id="confirmNewPassword" minlength="6" required placeholder="Repeat new password">
+          </div>
+          <button type="submit" class="btn btn-primary" style="margin-top: 20px; width: 100%;">Update Password</button>
+        </form>
+      </div>
+
+    </div>
+
   </main>
+
+  <!-- Mobile Bottom Navigation Bar -->
+  <nav class="bottom-nav">
+    <a href="home.html"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>Home</a>
+    <a href="stocks.html"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Stock</a>
+    <a href="finance.html"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Finance</a>
+    <a href="workers.html"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>Workers</a>
+    <a href="vehicles.html"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Vehicles</a>
+  </nav>
 
   <div class="toast-container" id="toastContainer"></div>
 
@@ -267,6 +492,103 @@
       `;
       container.appendChild(toast);
       setTimeout(() => toast.remove(), 4000);
+    }
+
+    // ----------------------------------------------------
+    // CATEGORY & SUBCATEGORY NAVIGATION LOGIC
+    // ----------------------------------------------------
+    const CATEGORIES = {
+      general: {
+        title: 'General & Business',
+        subcategories: [
+          { id: 'all-general', name: '📁 All General', target: 'all' },
+          { id: 'profile', name: '👤 Business Profile', target: 'profile' },
+          { id: 'connection', name: '🔌 System Connection', target: 'connection' }
+        ]
+      },
+      catalogs: {
+        title: 'Catalogs & Masters',
+        subcategories: [
+          { id: 'all-catalogs', name: '📁 All Catalogs', target: 'all' },
+          { id: 'products', name: '🌾 Product Catalog', target: 'products' },
+          { id: 'roles', name: '👷 Worker Roles', target: 'roles' }
+        ]
+      },
+      system: {
+        title: 'Preferences & Security',
+        subcategories: [
+          { id: 'all-system', name: '📁 All Preferences', target: 'all' },
+          { id: 'configs', name: '🔔 Alerts & Budgets', target: 'configs' },
+          { id: 'security', name: '🔒 Account Security', target: 'security' }
+        ]
+      },
+      all: {
+        title: 'View All Settings',
+        subcategories: [
+          { id: 'all-view', name: '📑 Showing All 6 Sections', target: 'all' }
+        ]
+      }
+    };
+
+    let activeCategory = 'general';
+    let activeSubcat = 'all';
+
+    function renderSubcategoryPills(categoryKey) {
+      const bar = document.getElementById('subcatPillsBar');
+      const catData = CATEGORIES[categoryKey] || CATEGORIES.all;
+      bar.innerHTML = '';
+
+      catData.subcategories.forEach((sub, index) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `subcat-pill ${ (activeSubcat === sub.target || (index === 0 && activeSubcat === 'all')) ? 'active' : '' }`;
+        btn.innerHTML = sub.name;
+        btn.onclick = () => selectSubcategory(sub.target, btn);
+        bar.appendChild(btn);
+      });
+    }
+
+    function selectCategory(categoryKey) {
+      activeCategory = categoryKey;
+      activeSubcat = 'all';
+
+      // Update Category Tab buttons
+      document.querySelectorAll('.cat-tab-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById(`tab-cat-${categoryKey}`);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      // Update Subcategory Pills
+      renderSubcategoryPills(categoryKey);
+
+      // Filter panels
+      filterPanels();
+    }
+
+    function selectSubcategory(subcatTarget, btnEl) {
+      activeSubcat = subcatTarget;
+
+      // Update pill active state
+      document.querySelectorAll('.subcat-pill').forEach(pill => pill.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
+
+      filterPanels();
+    }
+
+    function filterPanels() {
+      const cards = document.querySelectorAll('.settings-section-card');
+      cards.forEach(card => {
+        const cardCat = card.getAttribute('data-category');
+        const cardSubcat = card.getAttribute('data-subcat');
+
+        const catMatches = (activeCategory === 'all' || cardCat === activeCategory);
+        const subcatMatches = (activeSubcat === 'all' || cardSubcat === activeSubcat);
+
+        if (catMatches && subcatMatches) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
     }
 
     // ----------------------------------------------------
@@ -323,7 +645,7 @@
           tbody.innerHTML += `
             <tr>
               <td style="font-weight: 600; color: var(--text-primary);">${p.name}</td>
-              <td style="font-weight: 500;">${p.initial_stock.toFixed(1)} kg</td>
+              <td style="font-weight: 500;">${(p.initial_stock || 0).toFixed(1)} kg</td>
               <td style="text-align: right; width: 80px;">
                 <button class="delete" onclick="deleteProduct('${p.key}')" title="Delete Product" style="background: none; border: none; cursor: pointer; color: var(--danger); padding: 4px;">
                   <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
@@ -407,7 +729,7 @@
               <td style="font-weight: 600; color: var(--text-primary);">${r.name}</td>
               <td style="text-align: right; width: 80px;">
                 <button class="delete" onclick="deleteRole('${r.key}')" title="Delete Role" style="background: none; border: none; cursor: pointer; color: var(--danger); padding: 4px;">
-                  <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2 2v2"/></svg>
+                  <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
                 </button>
               </td>
             </tr>
@@ -546,12 +868,12 @@
       window.location.href = '/login.html';
     });
 
-    // Initial Load
+    // Initial Load & Category setup
+    selectCategory('general');
     loadProfile();
     loadCatalog();
     loadRoles();
     loadSettings();
-
   </script>
 </body>
 </html>

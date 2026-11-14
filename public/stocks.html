@@ -64,6 +64,9 @@
   <!-- Main Content Area -->
   <main>
     <header>
+      <button class="mobile-menu-btn" onclick="document.body.classList.toggle('nav-open')" aria-label="Open menu" style="display:none;">
+        <svg viewBox="0 0 24 24" style="width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2;"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
       <div class="header-title">
         <h1>Stocks</h1>
         <p>Monitor supply logs, search items, and trace vehicle dispatches</p>
@@ -111,7 +114,7 @@
         <h2>Stock Ledger Entries</h2>
         <button class="btn btn-primary" id="openStockModalBtn">
           <svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.5;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          Log Stock Entry
+          ➕ Add Stock Entry
         </button>
       </div>
       <div class="table-responsive">
@@ -144,29 +147,37 @@
   <div class="dialog-overlay" id="stockModal" style="display: none;">
     <div class="dialog">
       <div class="dialog-header">
-        <h3>Log Stock Transaction</h3>
+        <h3>➕ Add Stock Entry</h3>
         <button class="btn-close" id="closeStockModalBtn" style="background:none; border:none; font-size:24px; cursor:pointer;">&times;</button>
       </div>
       <div class="dialog-body">
         <form id="stockForm">
           <div class="form-group">
-            <label for="stockType">Transaction Type</label>
-            <select id="stockType" required style="width:100%; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
-              <option value="INCOMING">INCOMING (Purchase/Supply)</option>
-              <option value="OUTGOING">OUTGOING (Sale/Dispatch)</option>
-            </select>
+            <label>What are you doing? *</label>
+            <div class="type-toggle">
+              <button type="button" class="type-toggle-btn incoming active" id="btnIncoming" onclick="setStockType('INCOMING')">
+                📦 Received<br><small style="font-weight:400;font-size:12px;">Stock coming in</small>
+              </button>
+              <button type="button" class="type-toggle-btn outgoing" id="btnOutgoing" onclick="setStockType('OUTGOING')">
+                🚛 Sent Out<br><small style="font-weight:400;font-size:12px;">Stock going out</small>
+              </button>
+            </div>
+            <input type="hidden" id="stockType" value="INCOMING">
           </div>
           <div class="form-group">
             <label for="stockItem">Item Name</label>
             <select id="stockItem" required style="width:100%; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border-color);"></select>
+            <span class="field-hint">Choose the product from the list above</span>
           </div>
           <div class="form-group">
             <label for="stockQty">Quantity (kg)</label>
-            <input type="number" id="stockQty" min="0.1" step="any" required placeholder="e.g. 500" style="width:100%; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
+            <input type="number" id="stockQty" min="0.1" step="any" required placeholder="e.g. 500" inputmode="decimal" style="width:100%; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
+            <span class="field-hint">Enter weight in kg, e.g. 500</span>
           </div>
           <div class="form-group">
             <label for="stockPrice">Price per kg ($)</label>
-            <input type="number" id="stockPrice" min="0.01" step="any" required placeholder="e.g. 1.25" style="width:100%; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
+            <input type="number" id="stockPrice" min="0.01" step="any" required placeholder="e.g. 1.25" inputmode="decimal" style="width:100%; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
+            <span class="field-hint">Cost per kg, e.g. 1.25</span>
           </div>
           <div class="form-group">
             <label for="stockVehicle">Vehicle Selection (Optional)</label>
@@ -228,10 +239,10 @@
           </div>
 
           <div class="form-group">
-            <label for="stockDate">Date & Time</label>
+            <label for="stockDate">Date &amp; Time</label>
             <input type="datetime-local" id="stockDate" required style="width:100%; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
           </div>
-          <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 16px; padding:12px;">Log Transaction</button>
+          <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 16px; padding:12px;">✅ Save Stock Entry</button>
         </form>
       </div>
     </div>
@@ -259,6 +270,40 @@
       `;
       container.appendChild(toast);
       setTimeout(() => toast.remove(), 4000);
+    }
+
+    function showConfirm(title, msg) {
+      return new Promise(resolve => {
+        const overlay = document.createElement('div');
+        overlay.className = 'dialog-overlay';
+        overlay.style.cssText = 'display:flex;';
+        overlay.innerHTML = `<div style="background:white;border-radius:16px;padding:32px 24px;max-width:360px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.15);margin:auto;">
+          <div style="font-size:48px;margin-bottom:16px;">🗑️</div>
+          <div style="font-size:18px;font-weight:700;margin-bottom:8px;">${title}</div>
+          <div style="font-size:14px;color:#64748b;margin-bottom:24px;line-height:1.6;">${msg}</div>
+          <div style="display:flex;gap:12px;flex-direction:column;">
+            <button class="btn btn-danger" id="cYes" style="width:100%;padding:14px;">🗑️ Yes, Remove It</button>
+            <button class="btn btn-secondary" id="cNo" style="width:100%;padding:14px;">← Cancel</button>
+          </div>
+        </div>`;
+        document.body.appendChild(overlay);
+        overlay.querySelector('#cYes').onclick = () => { overlay.remove(); resolve(true); };
+        overlay.querySelector('#cNo').onclick = () => { overlay.remove(); resolve(false); };
+      });
+    }
+
+    function setStockType(type) {
+      document.getElementById('stockType').value = type;
+      document.getElementById('btnIncoming').classList.toggle('active', type === 'INCOMING');
+      document.getElementById('btnOutgoing').classList.toggle('active', type === 'OUTGOING');
+      // Update party labels
+      const isIncoming = type === 'INCOMING';
+      const partyLabel = document.getElementById('stockPartyLabel');
+      if (partyLabel) partyLabel.textContent = isIncoming ? 'Supplier / Seller Name' : 'Buyer / Customer Name';
+      const payLabel = document.getElementById('stockPaymentLabel');
+      if (payLabel) payLabel.textContent = isIncoming ? 'Payment Status (Sent?)' : 'Payment Status (Received?)';
+      const amtLabel = document.getElementById('stockAmountPaidLabel');
+      if (amtLabel) amtLabel.textContent = isIncoming ? 'Amount Paid' : 'Amount Received';
     }
 
     let allTransactions = [];
@@ -329,7 +374,7 @@
       });
 
       if (filtered.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="10" style="text-align: center; color: var(--text-secondary);">No matching stock records found.</td></tr>';
+        tbody.innerHTML = `<tr><td colspan="10"><div class="empty-state"><div class="empty-state-icon">📦</div><div class="empty-state-title">No stock records found</div><div class="empty-state-subtitle">Tap "➕ Add Stock Entry" to record your first stock movement.</div></div></td></tr>`;
       } else {
         filtered.forEach(s => {
           const isInc = s.type === 'INCOMING';
@@ -403,25 +448,15 @@
 
     // Toggle type locking for wastage
     document.getElementById('stockIsWastage').addEventListener('change', (e) => {
-      const typeSelect = document.getElementById('stockType');
       if (e.target.checked) {
-        typeSelect.value = 'OUTGOING';
-        typeSelect.disabled = true;
+        setStockType('OUTGOING');
+        document.getElementById('btnIncoming').disabled = true;
+        document.getElementById('btnOutgoing').disabled = true;
       } else {
-        typeSelect.disabled = false;
+        document.getElementById('btnIncoming').disabled = false;
+        document.getElementById('btnOutgoing').disabled = false;
       }
     });
-
-    // Dynamic party/payment labels based on transaction type
-    function updatePartyLabels() {
-      const isIncoming = document.getElementById('stockType').value === 'INCOMING';
-      document.getElementById('stockPartyLabel').textContent = isIncoming ? 'Supplier / Seller Name' : 'Buyer / Customer Name';
-      document.getElementById('stockPartyContact').placeholder = isIncoming ? 'e.g. +91 98765 43210' : 'e.g. buyer@email.com';
-      document.getElementById('stockPaymentLabel').textContent = isIncoming ? 'Payment Status (Sent?)' : 'Payment Status (Received?)';
-      document.getElementById('stockAmountPaidLabel').textContent = isIncoming ? 'Amount Paid ($)' : 'Amount Received ($)';
-    }
-    document.getElementById('stockType').addEventListener('change', updatePartyLabels);
-    updatePartyLabels();
 
     document.getElementById('stockPaymentStatus').addEventListener('change', (e) => {
       const group = document.getElementById('stockAmountPaidGroup');
@@ -479,7 +514,9 @@
 
         showToast('Stock transaction successfully logged!');
         stockModal.style.display = 'none';
-        document.getElementById('stockType').disabled = false;
+        document.getElementById('btnIncoming').disabled = false;
+        document.getElementById('btnOutgoing').disabled = false;
+        setStockType('INCOMING');
         stockForm.reset();
         loadStockLogs();
       } catch (err) {
@@ -489,7 +526,8 @@
 
     // Deletion
     window.deleteStockEntry = async function(id) {
-      if (!confirm('Are you sure you want to delete this stock transaction? This will also remove the linked general ledger entry.')) return;
+      const confirmed = await showConfirm('Remove this entry?', 'This will also remove the linked finance record. This cannot be undone.');
+      if (!confirmed) return;
       try {
         const res = await fetch(`/api/stocks/${id}`, {
           method: 'DELETE',
@@ -497,8 +535,7 @@
         });
         const result = await res.json();
         if (!res.ok) throw new Error(result.error || 'Failed to delete stock entry');
-
-        showToast('Stock record and linked general ledger transaction deleted.');
+        showToast('Stock record removed successfully.');
         loadStockLogs();
       } catch (err) {
         showToast(err.message, 'danger');
@@ -545,5 +582,14 @@
     loadStockLogs();
     loadWorkersAndVehicles();
   </script>
+
+  <nav class="bottom-nav">
+    <a href="home.html"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>Home</a>
+    <a href="stocks.html" class="active"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Stock</a>
+    <a href="finance.html"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Finance</a>
+    <a href="workers.html"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>Workers</a>
+    <a href="vehicles.html"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Vehicles</a>
+  </nav>
+  <button class="fab" onclick="document.getElementById('openStockModalBtn').click()" title="Add Stock Entry">＋</button>
 </body>
 </html>
