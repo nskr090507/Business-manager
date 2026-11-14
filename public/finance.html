@@ -65,14 +65,17 @@
   <!-- Main Area -->
   <main>
     <header>
+      <button class="mobile-menu-btn" onclick="document.body.classList.toggle('nav-open')" aria-label="Open menu" style="display:none;">
+        <svg viewBox="0 0 24 24" style="width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
       <div class="header-title">
-        <h1>Finances</h1>
-        <p>Monitor profit margins, transaction sheets, and monthly budgets</p>
+        <h1>Finances &amp; Ledgers</h1>
+        <p>Monitor revenue, cash flow, party balances, and record payments</p>
       </div>
       <div class="header-actions">
-        <button class="btn btn-primary" id="addTxBtn">
+        <button class="btn btn-primary" id="addTxBtn" style="min-width: 190px;">
           <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.5;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          Record Transaction
+          ⚡ Quick Record
         </button>
       </div>
     </header>
@@ -112,7 +115,7 @@
       </div>
 
       <div class="kpi-card kpi-wastage" style="border-left: 4px solid var(--danger);">
-        <div class="kpi-icon"><svg viewBox="0 0 24 24" style="stroke: var(--danger); fill: none; stroke-width: 2.5;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2 2v2"/></svg></div>
+        <div class="kpi-icon"><svg viewBox="0 0 24 24" style="stroke: var(--danger); fill: none; stroke-width: 2.5;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></div>
         <div class="kpi-details">
           <span class="kpi-title" style="color: var(--danger);">Wastage Cost</span>
           <span class="kpi-value" id="kpiWastage" style="color: var(--danger); font-weight: 700;">$0.00</span>
@@ -138,7 +141,6 @@
 
     <!-- Charts & Budgets -->
     <div class="dashboard-row">
-      <!-- Pie Chart of Expenses -->
       <div class="panel">
         <div class="panel-header">
           <h2>Expenses Breakdown</h2>
@@ -148,7 +150,6 @@
         </div>
       </div>
 
-      <!-- Budget Limits card -->
       <div class="panel">
         <div class="panel-header">
           <h2>Budget Tracker</h2>
@@ -158,7 +159,6 @@
             <span style="font-size:14px;color:var(--text-secondary);">Current Month Limit:</span>
             <span style="font-weight:700;" id="budgetValue">$5,000.00</span>
           </div>
-          <!-- Progress bar -->
           <div style="background-color: var(--bg-secondary); border-radius: 9999px; height: 16px; overflow: hidden; width: 100%; position: relative;">
             <div id="budgetBar" style="background-color: var(--primary); height: 100%; width: 0%; transition: width 0.3s ease;"></div>
           </div>
@@ -172,8 +172,6 @@
           </div>
         </div>
       </div>
-    </div>
-
     </div>
 
     <!-- Outstanding Party Balances -->
@@ -192,9 +190,7 @@
               <th>Status / Balance</th>
             </tr>
           </thead>
-          <tbody>
-            <!-- Load records -->
-          </tbody>
+          <tbody></tbody>
         </table>
       </div>
     </div>
@@ -202,7 +198,7 @@
     <!-- Financial History Filters & Records -->
     <div class="panel">
       <div class="panel-header" style="flex-wrap: wrap; gap: 16px;">
-        <h2>Finance History</h2>
+        <h2>Financial History Ledger</h2>
         
         <!-- Filter Bar -->
         <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
@@ -235,70 +231,109 @@
               <th>Category</th>
               <th>Description</th>
               <th>Amount</th>
-              <th>Action</th>
+              <th style="text-align: right;">Action</th>
             </tr>
           </thead>
-          <tbody>
-            <!-- Load records -->
-          </tbody>
+          <tbody></tbody>
         </table>
       </div>
     </div>
 
   </main>
 
-  <!-- Add Transaction Dialog -->
-  <div class="dialog-overlay" id="txDialog">
-    <div class="dialog">
+  <!-- ======================================================= -->
+  <!-- LIGHTNING FAST FINANCE TRANSACTION DIALOG               -->
+  <!-- ======================================================= -->
+  <div class="dialog-overlay" id="txDialog" style="display: none;">
+    <div class="dialog" style="max-width: 500px; width: 95%;">
       <div class="dialog-header">
-        <h3>Record Custom Transaction</h3>
-        <button class="btn btn-secondary" style="padding: 4px 8px;" id="closeTxDialogBtn">✕</button>
+        <h3 style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 24px;">⚡</span> Quick Finance Record
+        </h3>
+        <button class="btn-close" id="closeTxDialogBtn" style="background:none; border:none; font-size:24px; cursor:pointer;">&times;</button>
       </div>
       <form id="txForm">
         <div class="dialog-body">
-          <div class="form-group">
-            <label for="txType">Transaction Type</label>
-            <select id="txType" required>
-              <option value="INCOME">Income (+)</option>
-              <option value="EXPENSE">Expense (-)</option>
-            </select>
+
+          <!-- 1. Big Toggle: Income vs Expense -->
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label style="font-weight: 700; font-size: 14px;">1. Transaction Type *</label>
+            <div class="type-toggle">
+              <button type="button" class="type-toggle-btn outgoing active" id="btnFinanceExpense" onclick="setFinanceType('EXPENSE')">
+                <span style="font-size: 20px;">💸</span><br>
+                <strong>Expense (Money Out)</strong>
+                <small style="display:block; font-size:11px; opacity:0.8; margin-top:2px;">Fuel, Repairs, Wages</small>
+              </button>
+              <button type="button" class="type-toggle-btn incoming" id="btnFinanceIncome" onclick="setFinanceType('INCOME')">
+                <span style="font-size: 20px;">💵</span><br>
+                <strong>Income (Money In)</strong>
+                <small style="display:block; font-size:11px; opacity:0.8; margin-top:2px;">Sales, Client Revenue</small>
+              </button>
+            </div>
+            <input type="hidden" id="txType" value="EXPENSE">
           </div>
-          <div class="form-group">
-            <label for="txCategory">Category</label>
-            <select id="txCategory" required>
-              <option value="Service Revenue">Service Revenue</option>
-              <option value="Wages">Wages</option>
-              <option value="Maintenance">Maintenance</option>
-              <option value="Fuel">Fuel</option>
-              <option value="Other">Other / Miscellaneous</option>
-            </select>
+
+          <!-- 2. One-Tap Category Chips -->
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label style="font-weight: 700; font-size: 14px;">2. Category (Tap to pick) *</label>
+            <div class="quick-chips" id="financeCategoryChips"></div>
+            <select id="txCategory" required style="width:100%; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border-color); font-weight:600; display:none;"></select>
           </div>
-          <div class="form-group">
-            <label for="txAmount">Amount ($)</label>
-            <input type="number" id="txAmount" step="0.01" min="0.01" placeholder="e.g. 500.00" required>
+
+          <!-- 3. Amount with Quick Preset Chips -->
+          <div class="form-group" style="margin-bottom: 14px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <label for="txAmount" style="font-weight: 700; font-size: 14px; margin-bottom:0;">3. Amount ($) *</label>
+              <span style="font-size:12px; color:var(--text-secondary);">Quick presets:</span>
+            </div>
+            <div class="quick-chips" style="margin-top:4px;">
+              <button type="button" class="quick-chip" onclick="addTxAmount(20)">+$20</button>
+              <button type="button" class="quick-chip" onclick="addTxAmount(50)">+$50</button>
+              <button type="button" class="quick-chip" onclick="addTxAmount(100)">+$100</button>
+              <button type="button" class="quick-chip" onclick="addTxAmount(250)">+$250</button>
+              <button type="button" class="quick-chip" onclick="addTxAmount(500)">+$500</button>
+            </div>
+            <input type="number" id="txAmount" step="0.01" min="0.01" placeholder="Type amount (e.g. 150.00)" required inputmode="decimal" style="width:100%; padding:12px; border-radius:var(--radius-sm); border:1px solid var(--border-color); font-size:20px; font-weight:800;">
           </div>
-          <div class="form-group">
-            <label for="txDate">Transaction Date</label>
-            <input type="date" id="txDate" required>
+
+          <!-- 4. Description (Auto-filled from Category) -->
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label for="txDesc" style="font-weight: 700; font-size: 14px;">4. Note / Description</label>
+            <input type="text" id="txDesc" placeholder="e.g. Fuel for delivery vehicle" required style="width:100%; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
           </div>
+
+          <!-- Date (Defaults to Today) -->
           <div class="form-group">
-            <label for="txDesc">Description / Narrative</label>
-            <input type="text" id="txDesc" placeholder="e.g. Service billing for client dispatch" required>
+            <label for="txDate" style="font-size: 13px; color:var(--text-secondary);">Date (Defaults to Today)</label>
+            <input type="date" id="txDate" required style="width:100%; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
           </div>
+
         </div>
-        <div class="dialog-footer">
-          <button type="button" class="btn btn-secondary" id="cancelTxBtn">Cancel</button>
-          <button type="submit" class="btn btn-primary">Save Entry</button>
+        <div class="dialog-footer" style="padding: 16px 24px; border-top: 1px solid var(--border-color);">
+          <button type="button" class="btn btn-secondary" id="cancelTxBtn" style="padding:12px 18px;">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveTxBtn" style="flex:1; padding:12px 20px; font-size:16px; font-weight:700;">
+            ✅ Save Record
+          </button>
         </div>
       </form>
     </div>
   </div>
 
+  <!-- Mobile Bottom Navigation -->
+  <nav class="bottom-nav">
+    <a href="home.html"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>Home</a>
+    <a href="stocks.html"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Stock</a>
+    <a href="finance.html" class="active"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Finance</a>
+    <a href="workers.html"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>Workers</a>
+    <a href="vehicles.html"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Vehicles</a>
+  </nav>
+  <button class="fab" id="fabFinanceBtn" onclick="openQuickFinanceModal('EXPENSE')" title="Quick Record Finance">＋</button>
+
   <div class="toast-container" id="toastContainer"></div>
 
   <script>
     const token = localStorage.getItem('token');
-    const username = localStorage.getItem('username');
+    const username = localStorage.getItem('username') || 'User';
     if (!token) window.location.href = '/login.html';
 
     // Set User Profiles
@@ -318,73 +353,10 @@
       setTimeout(() => toast.remove(), 4000);
     }
 
-    // ----------------------------------------------------
-    // FINANCE LOADERS
-    // ----------------------------------------------------
-    let budgetLimit = 5000;
+    let pieChartInstance = null;
 
-    async function loadBudgetSettings() {
-      try {
-        const res = await fetch('/api/settings', {
-          headers: { 'Authorization': `Bearer ${token}` }
-        });
-        const data = await res.json();
-        budgetLimit = data.budget_threshold || 5000;
-        document.getElementById('budgetValue').textContent = `$${budgetLimit.toFixed(2)}`;
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    // Fetch Party Balances (Accounts Payable & Receivable)
-    async function fetchPartyBalances() {
-      try {
-        const res = await fetch('/api/finance/party-balances', {
-          headers: { 'Authorization': `Bearer ${token}` }
-        });
-        if (res.ok) {
-          const data = await res.json();
-          document.getElementById('kpiReceivable').textContent = `$${data.total_receivables.toFixed(2)}`;
-          document.getElementById('kpiPayable').textContent = `$${data.total_payables.toFixed(2)}`;
-          
-          const tbody = document.querySelector('#partyBalancesTable tbody');
-          tbody.innerHTML = '';
-          
-          if (data.parties.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--text-secondary);">No outstanding balances.</td></tr>`;
-            return;
-          }
-          
-          data.parties.forEach(p => {
-            const tr = document.createElement('tr');
-            
-            let netBalanceHtml = '';
-            if (p.net_balance > 0) {
-              netBalanceHtml = `<span style="color:var(--primary); font-weight:600;">+$${p.net_balance.toFixed(2)}</span>`;
-            } else if (p.net_balance < 0) {
-              netBalanceHtml = `<span style="color:var(--warning); font-weight:600;">-$${Math.abs(p.net_balance).toFixed(2)}</span>`;
-            } else {
-              netBalanceHtml = `<span style="color:var(--text-secondary);">Settled</span>`;
-            }
-
-            tr.innerHTML = `
-              <td style="font-weight:600;">${p.name}</td>
-              <td style="color:var(--text-secondary);">${p.contact || 'N/A'}</td>
-              <td style="color:var(--primary); font-weight:500;">$${p.receivable.toFixed(2)}</td>
-              <td style="color:var(--warning); font-weight:500;">$${p.payable.toFixed(2)}</td>
-              <td>${netBalanceHtml}</td>
-            `;
-            tbody.appendChild(tr);
-          });
-        }
-      } catch (err) {
-        console.error("Failed to load party balances:", err);
-      }
-    }
-
+    // Load Financial Summaries & Chart
     async function loadFinanceData() {
-      await loadBudgetSettings();
-      
       try {
         const res = await fetch('/api/finance/summary', {
           headers: { 'Authorization': `Bearer ${token}` }
@@ -394,89 +366,121 @@
           window.location.href = '/login.html';
           return;
         }
-        const summary = await res.json();
+        const data = await res.json();
 
         // Update KPIs
-        document.getElementById('kpiRev').textContent = `$${summary.totalRevenue.toFixed(2)}`;
-        document.getElementById('kpiExp').textContent = `$${summary.totalExpenses.toFixed(2)}`;
-        document.getElementById('kpiProfit').textContent = `$${summary.netProfit.toFixed(2)}`;
-        document.getElementById('kpiMargin').textContent = `${summary.profitMargin.toFixed(1)}%`;
-        document.getElementById('kpiWastage').textContent = `$${(summary.breakdown.wastage || 0).toFixed(2)}`;
+        document.getElementById('kpiRev').textContent = `$${(data.gross_revenue || 0).toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+        document.getElementById('kpiExp').textContent = `$${(data.total_expenses || 0).toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+        
+        const profit = data.net_profit || 0;
+        const profitEl = document.getElementById('kpiProfit');
+        profitEl.textContent = `$${profit.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+        profitEl.style.color = profit >= 0 ? 'var(--success)' : 'var(--danger)';
 
-        const kpiProfitCard = document.querySelector('.kpi-profit');
-        if (summary.netProfit < 0) {
-          kpiProfitCard.classList.remove('kpi-income');
-          kpiProfitCard.classList.add('kpi-expense');
-        } else {
-          kpiProfitCard.classList.add('kpi-income');
-          kpiProfitCard.classList.remove('kpi-expense');
-        }
+        document.getElementById('kpiMargin').textContent = `${(data.profit_margin || 0).toFixed(1)}%`;
+        document.getElementById('kpiWastage').textContent = `$${(data.wastage_cost || 0).toLocaleString(undefined, {minimumFractionDigits: 2})}`;
 
-        // Budget calculations
-        const expenses = summary.totalExpenses;
-        const percent = Math.min(Math.round((expenses / budgetLimit) * 100), 100);
+        // Update Budget Widget
+        const budgetLimit = data.budget_threshold || 5000;
+        const currentExp = data.monthly_expenses || 0;
+        const remaining = Math.max(0, budgetLimit - currentExp);
+        const percent = Math.min(100, (currentExp / budgetLimit) * 100);
+
+        document.getElementById('budgetValue').textContent = `$${budgetLimit.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+        document.getElementById('budgetPercent').textContent = `${percent.toFixed(1)}% Used`;
+        document.getElementById('budgetRemaining').textContent = `$${remaining.toLocaleString(undefined, {minimumFractionDigits: 2})} left`;
+
         const bar = document.getElementById('budgetBar');
         bar.style.width = `${percent}%`;
-        document.getElementById('budgetPercent').textContent = `${percent}% Used`;
-        
-        const remaining = budgetLimit - expenses;
-        if (remaining < 0) {
-          document.getElementById('budgetRemaining').textContent = `$${Math.abs(remaining).toFixed(2)} Over Budget`;
-          document.getElementById('budgetRemaining').style.color = 'var(--danger)';
-          bar.style.backgroundColor = 'var(--danger)';
-        } else {
-          document.getElementById('budgetRemaining').textContent = `$${remaining.toFixed(2)} left`;
-          document.getElementById('budgetRemaining').style.color = 'var(--text-secondary)';
-          bar.style.backgroundColor = 'var(--primary)';
+        bar.style.backgroundColor = percent > 90 ? 'var(--danger)' : percent > 75 ? 'var(--warning)' : 'var(--primary)';
+
+        // Render Expense Categories Pie Chart
+        const categories = data.categories || {};
+        const labels = Object.keys(categories);
+        const values = Object.values(categories);
+
+        const ctx = document.getElementById('expensePieChart').getContext('2d');
+        if (pieChartInstance) {
+          pieChartInstance.destroy();
         }
 
-        renderPieChart(summary.breakdown);
+        if (labels.length === 0) {
+          labels.push('No Expenses');
+          values.push(1);
+        }
 
-      } catch (err) {
-        showToast('Error loading financial analytics data', 'danger');
-      }
-    }
-
-    let expensePieChart = null;
-    function renderPieChart(breakdown) {
-      const ctx = document.getElementById('expensePieChart').getContext('2d');
-      if (expensePieChart) {
-        expensePieChart.destroy();
-      }
-
-      expensePieChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-          labels: ['Wages', 'Maintenance', 'Fuel', 'Other'],
-          datasets: [{
-            data: [breakdown.wages, breakdown.maintenance, breakdown.fuel, breakdown.other],
-            backgroundColor: [
-              '#f43f5e', // Rose
-              '#d97706', // Amber
-              '#8b5cf6', // Purple
-              '#64748b'  // Slate
-            ],
-            borderWidth: 2,
-            borderColor: '#ffffff'
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: {
-              position: 'right',
-              labels: { boxWidth: 12, font: { family: 'Inter', size: 12 } }
+        pieChartInstance = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: labels,
+            datasets: [{
+              data: values,
+              backgroundColor: ['#4f46e5', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4', '#64748b']
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'right'
+              }
             }
           }
-        }
-      });
+        });
+
+      } catch (err) {
+        showToast('Error loading finance metrics', 'danger');
+      }
     }
 
-    // ----------------------------------------------------
-    // LEDGER RECORDS
-    // ----------------------------------------------------
-    let transactions = [];
+    // Load Outstanding Balances
+    async function fetchPartyBalances() {
+      try {
+        const res = await fetch('/api/finance/party-balances', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+        
+        document.getElementById('kpiReceivable').textContent = `$${(data.total_receivable || 0).toFixed(2)}`;
+        document.getElementById('kpiPayable').textContent = `$${(data.total_payable || 0).toFixed(2)}`;
 
+        const tbody = document.querySelector('#partyBalancesTable tbody');
+        tbody.innerHTML = '';
+
+        if (!data.parties || data.parties.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-secondary);">No outstanding client or vendor balances.</td></tr>';
+          return;
+        }
+
+        data.parties.forEach(p => {
+          const bal = p.net_balance;
+          let statusBadge = '';
+          if (bal > 0) {
+            statusBadge = `<span class="badge badge-success">Client owes us $${bal.toFixed(2)}</span>`;
+          } else if (bal < 0) {
+            statusBadge = `<span class="badge badge-danger">We owe vendor $${Math.abs(bal).toFixed(2)}</span>`;
+          } else {
+            statusBadge = `<span class="badge" style="background:#e2e8f0; color:#475569;">Settled</span>`;
+          }
+
+          tbody.innerHTML += `
+            <tr>
+              <td style="font-weight: 600;">${p.name}</td>
+              <td style="font-size: 13px; color: var(--text-secondary);">${p.contact || '—'}</td>
+              <td style="font-weight: 500; color: var(--primary);">$${p.receivable.toFixed(2)}</td>
+              <td style="font-weight: 500; color: var(--warning);">$${p.payable.toFixed(2)}</td>
+              <td>${statusBadge}</td>
+            </tr>
+          `;
+        });
+
+      } catch (err) {
+        console.error('Error fetching party balances:', err);
+      }
+    }
+
+    // Load Ledger Table
     async function loadLedger() {
       const start = document.getElementById('filterStart').value;
       const end = document.getElementById('filterEnd').value;
@@ -484,59 +488,61 @@
       const type = document.getElementById('filterType').value;
 
       let query = `?start_date=${start}&end_date=${end}&category=${category}&type=${type}`;
-      
+
       try {
         const res = await fetch(`/api/finance/transactions${query}`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
-        transactions = await res.json();
-        renderLedgerTable();
+        const transactions = await res.json();
+
+        const tbody = document.querySelector('#ledgerTable tbody');
+        tbody.innerHTML = '';
+
+        if (!transactions || transactions.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><div class="empty-state-icon">💰</div><div class="empty-state-title">No transactions recorded</div><div class="empty-state-subtitle">Tap "⚡ Quick Record" to log your first income or expense.</div></div></td></tr>`;
+          return;
+        }
+
+        transactions.forEach(t => {
+          const isIncome = t.type === 'INCOME';
+          tbody.innerHTML += `
+            <tr>
+              <td>${t.date}</td>
+              <td>
+                <span class="badge ${isIncome ? 'badge-success' : 'badge-danger'}">
+                  ${isIncome ? '📈 Income' : '📉 Expense'}
+                </span>
+              </td>
+              <td style="font-weight: 500;">${t.category}</td>
+              <td>${t.description}</td>
+              <td style="font-weight: 700; color: ${isIncome ? 'var(--success)' : 'var(--text-primary)'};">
+                ${isIncome ? '+' : '-'}$${(t.amount || 0).toFixed(2)}
+              </td>
+              <td class="actions" style="text-align: right;">
+                <button class="delete" onclick="deleteTransaction('${t.id}')" title="Delete Entry">
+                  <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                </button>
+              </td>
+            </tr>
+          `;
+        });
       } catch (err) {
-        console.error(err);
+        showToast('Error loading financial ledger', 'danger');
       }
-    }
-
-    function renderLedgerTable() {
-      const tbody = document.querySelector('#ledgerTable tbody');
-      tbody.innerHTML = '';
-      if (transactions.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--text-secondary);">No ledger records found matching filters.</td></tr>`;
-        return;
-      }
-
-      transactions.forEach(t => {
-        const isIncome = t.type === 'INCOME';
-        const color = isIncome ? 'var(--success)' : 'var(--danger)';
-        const prefix = isIncome ? '+' : '-';
-        
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${t.date}</td>
-          <td><span class="badge ${isIncome ? 'badge-success' : 'badge-danger'}">${t.type}</span></td>
-          <td style="font-weight: 500;">${t.category}</td>
-          <td>${t.description}</td>
-          <td style="font-weight: 700; color: ${color}">${prefix}$${t.amount.toFixed(2)}</td>
-          <td class="actions">
-            <button class="delete" onclick="deleteTx('${t.id}')">
-              <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-            </button>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
     }
 
     document.getElementById('applyFiltersBtn').addEventListener('click', loadLedger);
 
-    window.deleteTx = async function(id) {
-      if (!confirm('Are you sure you want to delete this ledger entry? This cannot be undone.')) return;
+    // Delete transaction
+    window.deleteTransaction = async function(id) {
+      if (!confirm('Are you sure you want to delete this financial ledger entry?')) return;
       try {
         const res = await fetch(`/api/finance/transactions/${id}`, {
           method: 'DELETE',
           headers: { 'Authorization': `Bearer ${token}` }
         });
-        if (!res.ok) throw new Error('Delete failed');
-        showToast('Ledger record deleted successfully');
+        if (!res.ok) throw new Error('Failed to delete transaction');
+        showToast('Transaction record deleted');
         loadFinanceData();
         loadLedger();
       } catch (err) {
@@ -544,13 +550,32 @@
       }
     }
 
-    // Modal dialog trigger
+    // Modal dialog control
     const txDialog = document.getElementById('txDialog');
-    document.getElementById('addTxBtn').addEventListener('click', () => {
+    
+    const FINANCE_CATEGORIES = {
+      EXPENSE: [
+        { name: 'Fuel', icon: '⛽', defaultDesc: 'Fuel expense for vehicle' },
+        { name: 'Wages', icon: '👷', defaultDesc: 'Labor / wages payment' },
+        { name: 'Maintenance', icon: '🔧', defaultDesc: 'Repairs & maintenance' },
+        { name: 'Supplies', icon: '📦', defaultDesc: 'Business supplies purchase' },
+        { name: 'Other', icon: '📝', defaultDesc: 'Operating expense' }
+      ],
+      INCOME: [
+        { name: 'Service Revenue', icon: '💼', defaultDesc: 'Client service payment' },
+        { name: 'Product Sales', icon: '🌾', defaultDesc: 'Stock sale settlement' },
+        { name: 'Other', icon: '💵', defaultDesc: 'Miscellaneous income' }
+      ]
+    };
+
+    function openQuickFinanceModal(defaultType = 'EXPENSE') {
       document.getElementById('txForm').reset();
       document.getElementById('txDate').value = new Date().toISOString().split('T')[0];
+      setFinanceType(defaultType);
       txDialog.style.display = 'flex';
-    });
+    }
+
+    document.getElementById('addTxBtn').addEventListener('click', () => openQuickFinanceModal('EXPENSE'));
 
     function closeTxDialog() {
       txDialog.style.display = 'none';
@@ -558,9 +583,55 @@
     document.getElementById('closeTxDialogBtn').addEventListener('click', closeTxDialog);
     document.getElementById('cancelTxBtn').addEventListener('click', closeTxDialog);
 
+    function setFinanceType(type) {
+      document.getElementById('txType').value = type;
+      document.getElementById('btnFinanceExpense').classList.toggle('active', type === 'EXPENSE');
+      document.getElementById('btnFinanceIncome').classList.toggle('active', type === 'INCOME');
+
+      // Populate Category chips
+      const chipsBox = document.getElementById('financeCategoryChips');
+      const catSelect = document.getElementById('txCategory');
+      chipsBox.innerHTML = '';
+      catSelect.innerHTML = '';
+
+      const list = FINANCE_CATEGORIES[type] || FINANCE_CATEGORIES.EXPENSE;
+      list.forEach((cat, idx) => {
+        catSelect.innerHTML += `<option value="${cat.name}">${cat.name}</option>`;
+
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = `quick-chip ${idx === 0 ? 'active' : ''}`;
+        chip.innerHTML = `${cat.icon} ${cat.name}`;
+        chip.onclick = () => {
+          catSelect.value = cat.name;
+          document.querySelectorAll('#financeCategoryChips .quick-chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          
+          // Auto-fill description if blank or default
+          const descInput = document.getElementById('txDesc');
+          descInput.value = cat.defaultDesc;
+        };
+        chipsBox.appendChild(chip);
+      });
+
+      // Default first category
+      catSelect.value = list[0].name;
+      document.getElementById('txDesc').value = list[0].defaultDesc;
+    }
+
+    function addTxAmount(val) {
+      const input = document.getElementById('txAmount');
+      const cur = parseFloat(input.value) || 0;
+      input.value = (cur + val).toFixed(2);
+    }
+
     // Save transaction
     document.getElementById('txForm').addEventListener('submit', async (e) => {
       e.preventDefault();
+      
+      const saveBtn = document.getElementById('saveTxBtn');
+      saveBtn.classList.add('loading');
+
       const txData = {
         type: document.getElementById('txType').value,
         category: document.getElementById('txCategory').value,
@@ -581,31 +652,14 @@
         const result = await res.json();
         if (!res.ok) throw new Error(result.error || 'Failed to save entry');
 
-        showToast('Custom ledger record added!');
+        showToast('⚡ Transaction recorded successfully!');
         closeTxDialog();
         loadFinanceData();
         loadLedger();
       } catch (err) {
         showToast(err.message, 'danger');
-      }
-    });
-
-    // Auto-update categories based on transaction type selection
-    document.getElementById('txType').addEventListener('change', (e) => {
-      const type = e.target.value;
-      const cat = document.getElementById('txCategory');
-      if (type === 'INCOME') {
-        cat.innerHTML = `
-          <option value="Service Revenue">Service Revenue</option>
-          <option value="Other">Other / Misc Revenue</option>
-        `;
-      } else {
-        cat.innerHTML = `
-          <option value="Wages">Wages</option>
-          <option value="Maintenance">Maintenance</option>
-          <option value="Fuel">Fuel</option>
-          <option value="Other">Other / Operating Expense</option>
-        `;
+      } finally {
+        saveBtn.classList.remove('loading');
       }
     });
 
@@ -619,7 +673,6 @@
     loadFinanceData();
     fetchPartyBalances();
     loadLedger();
-
   </script>
 </body>
 </html>

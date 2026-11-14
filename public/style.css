@@ -1222,3 +1222,156 @@ input.has-error, select.has-error {
     bottom: 76px;
   }
 }
+
+/* =========================================
+   LIGHTNING FAST & SIMPLE DATA ENTRY STYLES
+   ========================================= */
+
+/* Fast Action Bar on Dashboard */
+.fast-actions-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.fast-action-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.fast-action-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary);
+}
+.fast-action-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.fast-action-icon.in { background: #dcfce7; color: #15803d; }
+.fast-action-icon.out { background: #fee2e2; color: #b91c1c; }
+.fast-action-icon.fin { background: #e0e7ff; color: #4338ca; }
+
+.fast-action-text {
+  display: flex;
+  flex-direction: column;
+}
+.fast-action-text strong {
+  font-size: 15px;
+  font-weight: 700;
+}
+.fast-action-text span {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* Quick Chips for Presets */
+.quick-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+  margin-bottom: 8px;
+}
+.quick-chip {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+.quick-chip:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+.quick-chip.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+/* Live Total Auto-Calculation Banner */
+.live-calc-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f0fdf4;
+  border: 1.5px solid #86efac;
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  margin: 14px 0;
+}
+.live-calc-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #166534;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.live-calc-amount {
+  font-size: 20px;
+  font-weight: 800;
+  color: #15803d;
+  font-family: 'Outfit', sans-serif;
+}
+
+/* Accordion for Optional Fields */
+.accordion-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: var(--bg-secondary);
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  margin: 12px 0;
+  transition: all 0.2s ease;
+}
+.accordion-toggle-btn:hover {
+  background: var(--border-color);
+  color: var(--text-primary);
+}
+.accordion-content {
+  display: none;
+  background: #fafafa;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  margin-bottom: 14px;
+}
+.accordion-content.open {
+  display: block;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
